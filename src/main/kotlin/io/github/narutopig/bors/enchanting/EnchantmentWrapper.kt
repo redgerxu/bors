@@ -3,7 +3,6 @@ package io.github.narutopig.bors.enchanting
 import io.github.narutopig.bors.util.General
 import org.bukkit.ChatColor
 import org.bukkit.NamespacedKey
-import org.bukkit.attribute.AttributeModifier
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.enchantments.EnchantmentTarget
 import org.bukkit.inventory.ItemStack

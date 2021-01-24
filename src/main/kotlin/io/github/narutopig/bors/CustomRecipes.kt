@@ -9,10 +9,10 @@ import org.bukkit.inventory.ShapedRecipe
 object CustomRecipes {
     private val bundle = bundleRecipe()
     private val experienceBottle = experienceBottleRecipe()
-    val minerHelmet = minerHelmetRecipe()
-    val minerChestplate = minerChestplateRecipe()
-    val minerLeggings = minerLeggingsRecipe()
-    val minerBoots = minerBootsRecipe()
+    private val minerHelmet = minerHelmetRecipe()
+    private val minerChestplate = minerChestplateRecipe()
+    private val minerLeggings = minerLeggingsRecipe()
+    private val minerBoots = minerBootsRecipe()
     private val saddle = saddleRecipe()
     private val trident = tridentRecipe()
 
@@ -76,7 +76,6 @@ object CustomRecipes {
         // itemmeta is only null when it is air
         val itemMeta = item.itemMeta
         itemMeta?.setDisplayName("${ChatColor.DARK_AQUA}Miner's Helmet")
-        item.setItemMeta(itemMeta) // IMPORTANT: must be setItemMeta
         val key = NamespacedKey(Main.instance, "miner_helmet")
         val recipe = ShapedRecipe(key, item)
         recipe.shape("DID", "D D")
@@ -91,7 +90,6 @@ object CustomRecipes {
         val item = ItemStack(Material.IRON_CHESTPLATE)
         val itemMeta = item.itemMeta
         itemMeta?.setDisplayName("${ChatColor.DARK_AQUA}Miner's Chestplate")
-        item.setItemMeta(itemMeta) // IMPORTANT: must be setItemMeta
         val key = NamespacedKey(Main.instance, "miner_chestplate")
         val recipe = ShapedRecipe(key, item)
         recipe.shape("D D", "DID", "DDD")
@@ -106,7 +104,6 @@ object CustomRecipes {
         val item = ItemStack(Material.IRON_LEGGINGS)
         val itemMeta = item.itemMeta
         itemMeta?.setDisplayName("${ChatColor.DARK_AQUA}Miner's Leggings")
-        item.setItemMeta(itemMeta) // IMPORTANT: must be setItemMeta
         val key = NamespacedKey(Main.instance, "miner_leggings")
         val recipe = ShapedRecipe(key, item)
         recipe.shape("DID", "D D", "D D")
@@ -121,7 +118,6 @@ object CustomRecipes {
         val item = ItemStack(Material.IRON_BOOTS)
         val itemMeta = item.itemMeta
         itemMeta?.setDisplayName("${ChatColor.DARK_AQUA}Miner's Boots")
-        item.setItemMeta(itemMeta) // IMPORTANT: must be setItemMeta
         val key = NamespacedKey(Main.instance, "miner_boots")
         val recipe = ShapedRecipe(key, item)
         recipe.shape("I I", "I I")
