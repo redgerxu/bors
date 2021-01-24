@@ -24,7 +24,7 @@ class Lifesteal : Listener {
         val currTime = System.currentTimeMillis()
         if (currTime - killManager.getOrDefault(uuid, 0L) >= 15L * 1000) {
             // runs only if the last time the victim was killed was more than 15 seconds ago
-            swetMaxHealth(killed, killed.maxHealth - 2)
+            setMaxHealth(killed, killed.maxHealth - 2)
             setMaxHealth(killed, killer.maxHealth + 2)
         }
         killManager[uuid] = currTime
