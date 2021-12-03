@@ -1,0 +1,13 @@
+name: BoRS
+version: '${project.version}'
+main: me.narutopig.bors.Main
+api-version: 1.18
+authors: [ narutopig ]
+description: Bunch of Random Stuff
+
+commands:
+  borsenchant:
+    description: "Enchants an item with any custom enchant from this plugin (chaining supported)"
+    usage: /borsenchant <enchant> <level>
+    aliases:
+      - borse
