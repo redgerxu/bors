@@ -2,7 +2,6 @@ package me.narutopig.bors;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -16,7 +15,6 @@ public class Util {
     private final static TreeMap<Integer, String> map = new TreeMap<>();
 
     static {
-
         map.put(1000, "M");
         map.put(900, "CM");
         map.put(500, "D");
@@ -30,7 +28,6 @@ public class Util {
         map.put(5, "V");
         map.put(4, "IV");
         map.put(1, "I");
-
     }
 
     public static boolean hasEnchant(ItemStack item, Enchantment enchantment) {

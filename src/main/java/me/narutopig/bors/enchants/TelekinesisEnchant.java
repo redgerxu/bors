@@ -21,6 +21,9 @@ public class TelekinesisEnchant implements Listener {
     public void onEntityDeath(EntityDeathEvent event) {
         // entity drops telekinesis
         Player killer = event.getEntity().getKiller();
+        if (event.getEntity() instanceof Player) {
+            return;
+        }
         if (killer == null) return;
         Map<Enchantment, Integer> enchantments = killer.getInventory().getItemInMainHand().getEnchantments();
         if (enchantments.getOrDefault(CustomEnchants.TELEKINESIS, -1) == -1) return;
