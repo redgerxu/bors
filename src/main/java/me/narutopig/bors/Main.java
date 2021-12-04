@@ -5,6 +5,8 @@ import me.narutopig.bors.enchantments.enchants.ExperienceEnchant;
 import me.narutopig.bors.enchantments.enchants.TelekinesisEnchant;
 import me.narutopig.bors.lifesteal.commands.SetHealth;
 import me.narutopig.bors.lifesteal.listeners.PlayerDeath;
+import me.narutopig.bors.recipes.CustomRecipes;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,6 +20,7 @@ public class Main extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
         getCommand("borsenchant").setExecutor(new EnchantCommand());
         getCommand("sethealth").setExecutor(new SetHealth());
+        Bukkit.addRecipe(CustomRecipes.tridentRecipe());
     }
 
     @Override
