@@ -5,13 +5,14 @@ name: Maven Package
 
 on:
   push:
-    branches:
-      - master
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
       packages: write
