@@ -1,4 +1,4 @@
-package me.narutopig.bors.commands;
+package me.narutopig.bors.enchantments.commands;
 
 import me.narutopig.bors.CustomEnchants;
 import me.narutopig.bors.EnchantmentWrapper;

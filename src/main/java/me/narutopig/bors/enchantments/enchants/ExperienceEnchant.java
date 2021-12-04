@@ -1,4 +1,4 @@
-package me.narutopig.bors.enchants;
+package me.narutopig.bors.enchantments.enchants;
 
 import me.narutopig.bors.CustomEnchants;
 import org.bukkit.enchantments.Enchantment;

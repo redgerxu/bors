@@ -11,3 +11,8 @@ commands:
     usage: /borsenchant <enchant> <level>
     aliases:
       - borse
+      - be
+
+  sethealth:
+    description: "Sets a player's max health"
+    usage: /sethealth <player> <health>
