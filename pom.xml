@@ -6,7 +6,7 @@
 
     <groupId>me.narutopig</groupId>
     <artifactId>BoRS</artifactId>
-    <version>1.1.0</version>
+    <version>1.0.0</version>
 
     <name>BoRS</name>
 
@@ -15,6 +15,16 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <distributionManagement>
+        <repository>
+            <uniqueVersion>true</uniqueVersion>
+            <id>github</id>
+            <name>GitHub Repository</name>
+            <url>https://github.com/narutopig/bors</url>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
 
     <packaging>jar</packaging>
     <build>
