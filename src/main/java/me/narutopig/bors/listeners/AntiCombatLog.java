@@ -33,6 +33,9 @@ public class AntiCombatLog implements Listener {
         UUID uuid = player.getUniqueId();
         long lastHit = combatManager.getOrDefault(uuid, 0L);
         long currTime = System.currentTimeMillis();
+        if (currTime - lastHit >= 30L * 1000 * 60) { // 30 minutes
+            violations.put(uuid, 0);
+        }
         if (currTime - lastHit < 15L * 1000) { // time passed is less than some value (might be changed)
             int newViolations = violations.getOrDefault(uuid, 0) + 1;
             violations.put(uuid, newViolations);

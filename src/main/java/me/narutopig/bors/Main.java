@@ -1,6 +1,6 @@
 package me.narutopig.bors;
 
-import me.narutopig.bors.enchantments.commands.EnchantCommand;
+import me.narutopig.bors.enchantments.EnchantCommand;
 import me.narutopig.bors.enchantments.enchants.ExperienceEnchant;
 import me.narutopig.bors.enchantments.enchants.TelekinesisEnchant;
 import me.narutopig.bors.listeners.AntiCombatLog;
@@ -10,6 +10,12 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements Listener {
+    public static void addRecipes() {
+        for (Recipe recipe : CustomRecipes.recipes) {
+            Bukkit.addRecipe(recipe);
+        }
+    }
+
     @Override
     public void onEnable() {
         CustomEnchants.register();
@@ -23,11 +29,5 @@ public class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-    }
-
-    public static void addRecipes() {
-        for (Recipe recipe : CustomRecipes.recipes) {
-            Bukkit.addRecipe(recipe);
-        }
     }
 }

@@ -25,6 +25,7 @@ public class CustomEnchants {
             generateItem(Material.ENDER_PEARL, 16)
     );
 
+
     public static final List<EnchantmentWrapper> customEnchants = Arrays.asList(
             EXPERIENCE,
             TELEKINESIS
