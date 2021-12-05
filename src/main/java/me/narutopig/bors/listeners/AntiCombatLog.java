@@ -23,7 +23,6 @@ public class AntiCombatLog implements Listener {
         if (event.getEntity() instanceof Player damaged && event.getDamager() instanceof Player damager) {
             long currTime = System.currentTimeMillis();
             combatManager.put(damaged.getUniqueId(), currTime);
-            System.out.println(currTime);
             combatManager.put(damager.getUniqueId(), currTime);
         }
     }
@@ -34,7 +33,6 @@ public class AntiCombatLog implements Listener {
         UUID uuid = player.getUniqueId();
         long lastHit = combatManager.getOrDefault(uuid, 0L);
         long currTime = System.currentTimeMillis();
-        System.out.println(lastHit);
         if (currTime - lastHit < 15L * 1000) { // time passed is less than some value (might be changed)
             int newViolations = violations.getOrDefault(uuid, 0) + 1;
             violations.put(uuid, newViolations);
