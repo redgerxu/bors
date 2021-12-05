@@ -21,8 +21,8 @@ import static java.lang.Integer.parseInt;
 import static me.narutopig.bors.Util.*;
 
 class CostData {
-    int[] indices;
-    int lastOverflow;
+    final int[] indices;
+    final int lastOverflow;
 
     public CostData(int[] indices, int lastOverflow) {
         this.indices = indices;

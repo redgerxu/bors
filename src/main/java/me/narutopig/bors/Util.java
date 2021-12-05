@@ -1,15 +1,15 @@
 package me.narutopig.bors;
 
+import org.bukkit.BanList;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Util {
     private final static TreeMap<Integer, String> map = new TreeMap<>();
@@ -129,5 +129,10 @@ public class Util {
             return map.get(number);
         }
         return map.get(l) + toRoman(number - l);
+    }
+
+    public static void banPlayer(Player player, String reason, Date date, BanList.Type type) {
+        Bukkit.getBanList(type).addBan(player.getName(), reason, date, "Console");
+        player.kickPlayer("Banned for reason: " + reason);
     }
 }
