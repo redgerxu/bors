@@ -32,7 +32,7 @@ public class Lifesteal implements Listener {
             setMaxHealth(killed, killed.getMaxHealth() - 2);
             setMaxHealth(killed, killer.getMaxHealth() + 2);
         }
-        
+
         killManager.put(uuid, currTime);
     }
 }
