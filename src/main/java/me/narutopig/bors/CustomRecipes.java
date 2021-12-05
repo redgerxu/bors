@@ -9,9 +9,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CustomRecipes {
-    public static final ShapedRecipe trident = tridentRecipe();
+    public static final ShapedRecipe experienceBottle = experienceBottleRecipe();
     public static final ShapedRecipe saddle = saddleRecipe();
-    public static final List<ShapedRecipe> recipes = Arrays.asList(trident, saddle);
+    public static final ShapedRecipe trident = tridentRecipe();
+    public static final List<ShapedRecipe> recipes = Arrays.asList(experienceBottle, saddle, trident);
+
+    public static ShapedRecipe experienceBottleRecipe() {
+        ItemStack expBottle = new ItemStack(Material.EXPERIENCE_BOTTLE);
+        NamespacedKey key = NamespacedKey.minecraft("experience_bottle");
+
+        ShapedRecipe recipe = new ShapedRecipe(key, expBottle);
+        recipe.shape(" G ", "GLG", "GGG");
+
+        recipe.setIngredient('G', Material.GLASS);
+        recipe.setIngredient('L', Material.LAPIS_LAZULI);
+
+        return recipe;
+    }
 
     public static ShapedRecipe tridentRecipe() {
         ItemStack trident = new ItemStack(Material.TRIDENT);
