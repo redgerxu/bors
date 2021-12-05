@@ -5,6 +5,7 @@ import me.narutopig.bors.enchantments.enchantments.AftermathEnchant;
 import me.narutopig.bors.enchantments.enchantments.ExperienceEnchant;
 import me.narutopig.bors.enchantments.enchantments.TelekinesisEnchant;
 import me.narutopig.bors.listeners.AntiCombatLog;
+import me.narutopig.bors.listeners.RecipeUnlocker;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Recipe;
@@ -20,6 +21,7 @@ public class Main extends JavaPlugin implements Listener {
         registerEvent(new TelekinesisEnchant());
         registerEvent(new TelekinesisEnchant());
         registerEvent(new AntiCombatLog());
+        registerEvent(new RecipeUnlocker());
         getCommand("borsenchant").setExecutor(new EnchantCommand());
         addRecipes();
     }
