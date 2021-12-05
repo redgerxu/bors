@@ -6,9 +6,9 @@ import me.narutopig.bors.enchantments.enchants.TelekinesisEnchant;
 import me.narutopig.bors.lifesteal.commands.SetHealth;
 import me.narutopig.bors.lifesteal.listeners.Lifesteal;
 import me.narutopig.bors.listeners.AntiCombatLog;
-import me.narutopig.bors.recipes.CustomRecipes;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements Listener {
@@ -22,10 +22,16 @@ public class Main extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new AntiCombatLog(), this);
         getCommand("borsenchant").setExecutor(new EnchantCommand());
         getCommand("sethealth").setExecutor(new SetHealth());
-        Bukkit.addRecipe(CustomRecipes.tridentRecipe());
+        addRecipes();
     }
 
     @Override
     public void onDisable() {
+    }
+
+    public static void addRecipes() {
+        for (Recipe recipe : CustomRecipes.recipes) {
+            Bukkit.addRecipe(recipe);
+        }
     }
 }
