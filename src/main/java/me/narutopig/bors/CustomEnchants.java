@@ -18,6 +18,13 @@ public class CustomEnchants {
             generateItem(Material.LAPIS_BLOCK, 1)
     );
 
+    public static final EnchantmentWrapper AFTERMATH = new EnchantmentWrapper(
+            "aftermath",
+            "Aftermath",
+            1,
+            generateItem(Material.TNT, 1)
+    );
+
     public static final EnchantmentWrapper TELEKINESIS = new EnchantmentWrapper(
             "telekinesis",
             "Telekinesis",
@@ -25,8 +32,8 @@ public class CustomEnchants {
             generateItem(Material.ENDER_PEARL, 16)
     );
 
-
     public static final List<EnchantmentWrapper> customEnchants = Arrays.asList(
+            AFTERMATH,
             EXPERIENCE,
             TELEKINESIS
     );

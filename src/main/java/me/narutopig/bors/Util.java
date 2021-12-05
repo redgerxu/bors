@@ -79,7 +79,6 @@ public class Util {
                 i++;
             }
         } else {
-            System.out.println("Does not have enchant " + enchantment.getName());
             String newLine = ChatColor.GREEN + enchantment.getName() + " " + toRoman(level);
             lore.add(newLine);
         }
@@ -93,7 +92,6 @@ public class Util {
 
     public static Enchantment getCustomEnchant(String key) {
         for (Enchantment enchantment : CustomEnchants.customEnchants) {
-            System.out.println(enchantment.getKey().getKey());
             if (enchantment.getKey().getKey().equals(key)) {
                 return enchantment;
             }
