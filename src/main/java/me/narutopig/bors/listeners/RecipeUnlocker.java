@@ -12,8 +12,6 @@ public class RecipeUnlocker implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        System.out.println("potato");
-
         for (Recipe recipe : CustomRecipes.recipes) {
             player.discoverRecipe(recipe.getResult().getType().getKey());
         }
