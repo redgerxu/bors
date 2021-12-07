@@ -120,8 +120,9 @@ public class EnchantCommand implements CommandExecutor {
             Map<EnchantmentWrapper, Integer> toBeAdded = new HashMap<>(); // stores the changes
             // enchantmentwrapper, reason
             Map<EnchantmentWrapper, String> ignored = new HashMap<>(); // ignored stuffs (for debug mainly i guess)
-            final String cannotEnchant = "this item cannot have this enchant.";
-            final String cannotAfford = "you do not have the required materials for this enchant.";
+            final String cannotEnchant = "this item cannot have this enchantment.";
+            final String cannotAfford = "you do not have the required materials for apply this enchantment.";
+            final String alreadyContains = "this item already has this enchantment at a higher level.";
 
             for (Map.Entry<EnchantmentWrapper, Integer> entry : newEnchants.entrySet()) {
                 EnchantmentWrapper enchantment = entry.getKey();
@@ -166,6 +167,17 @@ public class EnchantCommand implements CommandExecutor {
 
             for (EnchantmentWrapper e : toBeRemoved) {
                 toBeAdded.remove(e);
+            }
+
+            for (Map.Entry<EnchantmentWrapper, Integer> entry : toBeAdded.entrySet()) {
+                EnchantmentWrapper e = entry.getKey();
+                int oldLevel = handEnchants.getOrDefault(e, 0);
+                int newLevel = entry.getValue();
+
+                if (oldLevel > newLevel) {
+                    toBeAdded.remove(e);
+                    ignored.put(e, alreadyContains);
+                }
             }
 
             for (Map.Entry<EnchantmentWrapper, Integer> entry : toBeAdded.entrySet()) {
