@@ -188,7 +188,6 @@ public class EnchantCommand implements CommandExecutor {
 
             StringBuilder message = new StringBuilder(ChatColor.GREEN + "Applied the following enchants:\n");
 
-            // wip
             for (Map.Entry<EnchantmentWrapper, Integer> entry : toBeAdded.entrySet()) {
                 message.append("+ ")
                         .append(entry.getKey().getName())

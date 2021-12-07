@@ -9,10 +9,24 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CustomRecipes {
+    public static final ShapedRecipe bundle = bundleRecipe();
     public static final ShapedRecipe experienceBottle = experienceBottleRecipe();
     public static final ShapedRecipe saddle = saddleRecipe();
     public static final ShapedRecipe trident = tridentRecipe();
-    public static final List<ShapedRecipe> recipes = Arrays.asList(experienceBottle, saddle, trident);
+    public static final List<ShapedRecipe> recipes = Arrays.asList(bundle, experienceBottle, saddle, trident);
+
+    public static ShapedRecipe bundleRecipe() {
+        ItemStack bundle = new ItemStack(Material.BUNDLE);
+        NamespacedKey key = NamespacedKey.minecraft("bundle");
+
+        ShapedRecipe recipe = new ShapedRecipe(key, bundle);
+        recipe.shape("SUS", "U U", "UUU"); // sussus amogus
+
+        recipe.setIngredient('S', Material.STRING);
+        recipe.setIngredient('U', Material.LEATHER);
+
+        return recipe;
+    }
 
     public static ShapedRecipe experienceBottleRecipe() {
         ItemStack expBottle = new ItemStack(Material.EXPERIENCE_BOTTLE);
