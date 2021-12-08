@@ -31,6 +31,124 @@ class CostData {
 }
 
 public class EnchantCommand implements CommandExecutor {
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (sender instanceof Player player) {
+            ItemStack hand = player.getInventory().getItemInMainHand();
+            if (hand.getAmount() == 0) {
+                player.sendMessage(ChatColor.RED + "You need to hold an item to use this command.");
+                return false;
+            }
+
+            Map<EnchantmentWrapper, Integer> toBeAdded = getArguments(args); // stuff to add
+            Map<Enchantment, Integer> handEnchants = hand.getEnchantments(); // current enchants on item
+            // enchantmentwrapper, reason
+            Map<EnchantmentWrapper, String> ignored = new HashMap<>(); // ignored stuffs (for debug mainly i guess)
+            final String cannotEnchant = "this item cannot have this enchantment.";
+            final String cannotAfford = "you do not have the required materials for apply this enchantment.";
+            final String alreadyContains = "this item already has this enchantment at a higher level.";
+            final String conflicts = "this enchantment conflicts with another enchantment on this item.";
+
+            List<EnchantmentWrapper> toBeRemoved = new ArrayList<>();
+            List<Enchantment> handEnchantList = handEnchants.keySet().stream().toList();
+
+            // gets all the enchants that need to be ignored
+            for (Map.Entry<EnchantmentWrapper, Integer> entry : toBeAdded.entrySet()) {
+                EnchantmentWrapper e = entry.getKey();
+                int level = entry.getValue();
+
+                // is there a higher level
+                if (level < handEnchants.getOrDefault(e, 0)) {
+                    toBeRemoved.add(e);
+                    ignored.put(e, alreadyContains);
+                    continue;
+                }
+
+                // can the item be enchanted
+                if (!canEnchant(hand, e)) {
+                    toBeRemoved.add(e);
+                    ignored.put(e, cannotEnchant);
+                    continue;
+                }
+
+                // can the player afford
+                if (getCostData(e, player.getInventory(), level) == null) {
+                    toBeRemoved.add(e);
+                    ignored.put(e, cannotAfford);
+                }
+
+                // are there any conflicts
+                for (Enchantment enchantment : handEnchantList) {
+                    if (e.conflictsWith(enchantment)) {
+                        toBeRemoved.add(e);
+                        ignored.put(e, conflicts);
+                        break;
+                    }
+                }
+            }
+
+            // remove all enchantments that should not be there
+            for (EnchantmentWrapper e : toBeRemoved) {
+                toBeAdded.remove(e);
+            }
+
+            for (Map.Entry<EnchantmentWrapper, Integer> entry : toBeAdded.entrySet()) {
+                EnchantmentWrapper e = entry.getKey();
+                CostData costData = getCostData(e, player.getInventory(), entry.getValue());
+
+                if (costData != null) {
+                    int[] indices = costData.indices;
+
+                    for (int i : indices) {
+                        player.getInventory().clear(i);
+                    }
+
+                    int overflow = costData.lastOverflow;
+
+                    if (overflow != 0) {
+                        player.getInventory().setItem(indices[indices.length - 1], new ItemStack(e.getCost().getType(), overflow));
+                    }
+                }
+            }
+
+            for (Map.Entry<EnchantmentWrapper, Integer> entry : toBeAdded.entrySet()) {
+                EnchantmentWrapper e = entry.getKey();
+                int level = entry.getValue();
+                int newLevel = calculateLevel(e, level, handEnchants.getOrDefault(e, 0));
+                addEnchant(hand, e, newLevel);
+            }
+
+            player.getInventory().setItemInMainHand(hand);
+
+            StringBuilder message = new StringBuilder(ChatColor.GREEN + "Applied the following enchants:\n");
+
+            for (Map.Entry<EnchantmentWrapper, Integer> entry : toBeAdded.entrySet()) {
+                message.append("+ ")
+                        .append(entry.getKey().getName())
+                        .append(" ")
+                        .append(toRoman(entry.getValue()))
+                        .append("\n");
+            }
+
+            message.append(ChatColor.RED + "Ignored the following enchants:\n");
+
+            for (Map.Entry<EnchantmentWrapper, String> entry : ignored.entrySet()) {
+                message.append("- ")
+                        .append(entry.getKey().getName())
+                        .append(" because ")
+                        .append(entry.getValue())
+                        .append("\n");
+            }
+
+            player.sendMessage(message.toString());
+
+            return true;
+        } else {
+            sender.sendMessage(ChatColor.RED + "You need to be a player to use this command.");
+            return false;
+        }
+    }
+
     // utility functions
     public static Map<EnchantmentWrapper, Integer> getArguments(String[] args) {
         // returns a map with all the enchants that need to be applied
@@ -104,114 +222,5 @@ public class EnchantCommand implements CommandExecutor {
         }
 
         return new CostData(poggies, lastOverflow);
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player player) {
-            ItemStack hand = player.getInventory().getItemInMainHand();
-            if (hand.getAmount() == 0) {
-                player.sendMessage(ChatColor.RED + "You need to hold an item to use this command.");
-                return false;
-            }
-
-            Map<EnchantmentWrapper, Integer> newEnchants = getArguments(args); // stuff to add
-            Map<Enchantment, Integer> handEnchants = hand.getEnchantments(); // current enchants on item
-            Map<EnchantmentWrapper, Integer> toBeAdded = new HashMap<>(); // stores the changes
-            // enchantmentwrapper, reason
-            Map<EnchantmentWrapper, String> ignored = new HashMap<>(); // ignored stuffs (for debug mainly i guess)
-            final String cannotEnchant = "this item cannot have this enchantment.";
-            final String cannotAfford = "you do not have the required materials for apply this enchantment.";
-            final String alreadyContains = "this item already has this enchantment at a higher level.";
-
-            for (Map.Entry<EnchantmentWrapper, Integer> entry : newEnchants.entrySet()) {
-                EnchantmentWrapper enchantment = entry.getKey();
-                int level = entry.getValue();
-                if (!canEnchant(hand, enchantment)) {
-                    ignored.put(entry.getKey(), cannotEnchant);
-                    continue;
-                }
-
-                // calculated level
-                int currentLevel = handEnchants.getOrDefault(enchantment, 0);
-                int lvl = calculateLevel(enchantment, currentLevel, level);
-
-                toBeAdded.put(enchantment, lvl);
-            }
-
-            List<EnchantmentWrapper> toBeRemoved = new ArrayList<>(); // b/c i cant modify map in this loop
-
-            // checks if player can afford it
-            for (Map.Entry<EnchantmentWrapper, Integer> entry : toBeAdded.entrySet()) {
-                EnchantmentWrapper e = entry.getKey();
-
-                CostData costData = getCostData(e, player.getInventory(), entry.getValue());
-
-                if (costData != null) {
-                    int[] indices = costData.indices;
-
-                    for (int i : indices) {
-                        player.getInventory().clear(i);
-                    }
-
-                    int overflow = costData.lastOverflow;
-
-                    if (overflow != 0) {
-                        player.getInventory().setItem(indices[indices.length - 1], new ItemStack(e.getCost().getType(), overflow));
-                    }
-                } else {
-                    toBeRemoved.add(e);
-                    ignored.put(e, cannotAfford);
-                }
-            }
-
-            for (EnchantmentWrapper e : toBeRemoved) {
-                toBeAdded.remove(e);
-            }
-
-            for (Map.Entry<EnchantmentWrapper, Integer> entry : toBeAdded.entrySet()) {
-                EnchantmentWrapper e = entry.getKey();
-                int oldLevel = handEnchants.getOrDefault(e, 0);
-                int newLevel = entry.getValue();
-
-                if (oldLevel > newLevel) {
-                    toBeAdded.remove(e);
-                    ignored.put(e, alreadyContains);
-                }
-            }
-
-            for (Map.Entry<EnchantmentWrapper, Integer> entry : toBeAdded.entrySet()) {
-                addEnchant(hand, entry.getKey(), entry.getValue());
-            }
-
-            player.getInventory().setItemInMainHand(hand);
-
-            StringBuilder message = new StringBuilder(ChatColor.GREEN + "Applied the following enchants:\n");
-
-            for (Map.Entry<EnchantmentWrapper, Integer> entry : toBeAdded.entrySet()) {
-                message.append("+ ")
-                        .append(entry.getKey().getName())
-                        .append(" ")
-                        .append(toRoman(entry.getValue()))
-                        .append("\n");
-            }
-
-            message.append(ChatColor.RED + "Ignored the following enchants:\n");
-
-            for (Map.Entry<EnchantmentWrapper, String> entry : ignored.entrySet()) {
-                message.append("- ")
-                        .append(entry.getKey().getName())
-                        .append(" because ")
-                        .append(entry.getValue())
-                        .append("\n");
-            }
-
-            player.sendMessage(message.toString());
-
-            return true;
-        } else {
-            sender.sendMessage(ChatColor.RED + "You need to be a player to use this command.");
-            return false;
-        }
     }
 }
