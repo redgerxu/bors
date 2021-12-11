@@ -1,18 +1,19 @@
 package me.narutopig.bors;
 
 import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 
-import static me.narutopig.bors.Util.power;
+import static me.narutopig.bors.util.General.power;
 
 public class EnchantmentWrapper extends Enchantment {
     private final String name;
     private final int maxLevel;
-    private Enchantment[] conflicts = new Enchantment[] {};
+    private Enchantment[] conflicts = new Enchantment[]{};
     public ItemStack cost;
 
     public EnchantmentWrapper(String key, String name, int maxLevel, ItemStack cost, Enchantment[] conflicts) {

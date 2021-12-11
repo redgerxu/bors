@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 import static java.lang.Integer.parseInt;
-import static me.narutopig.bors.Util.*;
+import static me.narutopig.bors.util.Enchanting.*;
+import static me.narutopig.bors.util.General.toRoman;
 
 public class EnchantCommand implements CommandExecutor {
     @Override

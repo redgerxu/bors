@@ -1,35 +1,21 @@
-package me.narutopig.bors;
+package me.narutopig.bors.util;
 
-import org.bukkit.BanList;
-import org.bukkit.Bukkit;
+import me.narutopig.bors.CustomEnchants;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.checkerframework.checker.units.qual.A;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-public class Util {
-    private final static TreeMap<Integer, String> map = new TreeMap<>();
+import static me.narutopig.bors.util.General.toRoman;
 
-    static {
-        map.put(1000, "M");
-        map.put(900, "CM");
-        map.put(500, "D");
-        map.put(400, "CD");
-        map.put(100, "C");
-        map.put(90, "XC");
-        map.put(50, "L");
-        map.put(40, "XL");
-        map.put(10, "X");
-        map.put(9, "IX");
-        map.put(5, "V");
-        map.put(4, "IV");
-        map.put(1, "I");
-    }
-
+public class Enchanting {
     public static boolean hasEnchant(ItemStack item, Enchantment enchantment) {
         return item.getEnchantments().get(enchantment) != null;
     }
@@ -62,6 +48,7 @@ public class Util {
     public static void addEnchant(ItemStack item, Enchantment enchantment, int level) {
         if (!canEnchant(item, enchantment)) return;
         ItemMeta itemMeta = item.getItemMeta();
+
         if (itemMeta == null) return;
 
         List<String> lore = itemMeta.getLore();
@@ -88,49 +75,5 @@ public class Util {
 
         item.removeEnchantment(enchantment);
         item.addEnchantment(enchantment, level);
-    }
-
-    public static Enchantment getCustomEnchant(String key) {
-        for (Enchantment enchantment : CustomEnchants.customEnchants) {
-            if (enchantment.getKey().getKey().equals(key)) {
-                return enchantment;
-            }
-        }
-        return null;
-    }
-
-    public static <K, V> void printMap(Map<K, V> map) {
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-            System.out.println(entry.getKey().toString() + ":" + entry.getValue().toString());
-        }
-    }
-
-    public static ItemStack itemStack(Material material, int amount) {
-        return new ItemStack(material, amount);
-    }
-
-    public static int power(int base, int exponent) {
-        int res = 1;
-
-        for (int i = 0; i < exponent; i++) {
-            res *= base;
-        }
-
-        return res;
-    }
-
-    public static String toRoman(int number) {
-        // thanks Ben-Hur Langoni Junior
-        // https://stackoverflow.com/questions/12967896/converting-integers-to-roman-numerals-java
-        int l = map.floorKey(number);
-        if (number == l) {
-            return map.get(number);
-        }
-        return map.get(l) + toRoman(number - l);
-    }
-
-    public static void banPlayer(Player player, String reason, Date date, BanList.Type type) {
-        Bukkit.getBanList(type).addBan(player.getName(), reason, date, "Console");
-        player.kickPlayer("Banned for reason: " + reason);
     }
 }

@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static me.narutopig.bors.Util.banPlayer;
+import static me.narutopig.bors.util.General.banPlayer;
 
 public class AntiCombatLog implements Listener {
     private final Map<UUID, Long> combatManager = new HashMap<>();

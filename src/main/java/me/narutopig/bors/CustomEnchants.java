@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static me.narutopig.bors.Util.itemStack;
+import static me.narutopig.bors.util.General.itemStack;
 
 public class CustomEnchants {
     public static final EnchantmentWrapper EXPERIENCE = new EnchantmentWrapper(

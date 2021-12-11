@@ -8,8 +8,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import static me.narutopig.bors.Util.hasEnchant;
-import static me.narutopig.bors.Util.power;
+import static me.narutopig.bors.util.Enchanting.hasEnchant;
+import static me.narutopig.bors.util.General.power;
 
 public class AftermathEnchant implements Listener {
     public static int calculateDamage(Inventory inventory) {
