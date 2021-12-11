@@ -105,7 +105,7 @@ public class Util {
         }
     }
 
-    public static ItemStack generateItem(Material material, int amount) {
+    public static ItemStack itemStack(Material material, int amount) {
         return new ItemStack(material, amount);
     }
 

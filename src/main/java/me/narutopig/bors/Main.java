@@ -1,6 +1,6 @@
 package me.narutopig.bors;
 
-import me.narutopig.bors.enchantments.EnchantCommand;
+import me.narutopig.bors.commands.EnchantCommand;
 import me.narutopig.bors.enchantments.enchantments.AftermathEnchant;
 import me.narutopig.bors.enchantments.enchantments.ExperienceEnchant;
 import me.narutopig.bors.enchantments.enchantments.TelekinesisEnchant;

@@ -5,24 +5,28 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
-import static me.narutopig.bors.Util.power;
+import java.util.Arrays;
 
+import static me.narutopig.bors.Util.power;
 
 public class EnchantmentWrapper extends Enchantment {
     private final String name;
     private final int maxLevel;
+    private Enchantment[] conflicts = new Enchantment[] {};
     public ItemStack cost;
 
-    public EnchantmentWrapper(String key, String name, int level) {
+    public EnchantmentWrapper(String key, String name, int maxLevel, ItemStack cost, Enchantment[] conflicts) {
         super(NamespacedKey.minecraft(key));
         this.name = name;
-        this.maxLevel = level;
+        this.maxLevel = maxLevel;
+        this.cost = cost;
+        this.conflicts = conflicts;
     }
 
-    public EnchantmentWrapper(String key, String name, int level, ItemStack cost) {
+    public EnchantmentWrapper(String key, String name, int maxLevel, ItemStack cost) {
         super(NamespacedKey.minecraft(key));
         this.name = name;
-        this.maxLevel = level;
+        this.maxLevel = maxLevel;
         this.cost = cost;
     }
 
@@ -72,7 +76,7 @@ public class EnchantmentWrapper extends Enchantment {
 
     @Override
     public boolean conflictsWith(Enchantment other) {
-        return false;
+        return Arrays.stream(conflicts).filter(enchantment -> enchantment.getKey().equals(other.getKey())).toList().size() > 0;
     }
 
     @Override

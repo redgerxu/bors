@@ -1,7 +1,8 @@
-package me.narutopig.bors.enchantments;
+package me.narutopig.bors.commands;
 
 import me.narutopig.bors.CustomEnchants;
 import me.narutopig.bors.EnchantmentWrapper;
+import me.narutopig.bors.enchantments.CostData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,16 +20,6 @@ import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 import static me.narutopig.bors.Util.*;
-
-class CostData {
-    final int[] indices;
-    final int lastOverflow;
-
-    public CostData(int[] indices, int lastOverflow) {
-        this.indices = indices;
-        this.lastOverflow = lastOverflow;
-    }
-}
 
 public class EnchantCommand implements CommandExecutor {
     @Override
@@ -72,7 +63,7 @@ public class EnchantCommand implements CommandExecutor {
                 }
 
                 // can the player afford
-                if (getCostData(e, player.getInventory(), level) == null) {
+                if (e.getCost() != null && getCostData(e, player.getInventory(), level) == null) {
                     toBeRemoved.add(e);
                     ignored.put(e, cannotAfford);
                 }

@@ -8,28 +8,29 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static me.narutopig.bors.Util.generateItem;
+import static me.narutopig.bors.Util.itemStack;
 
 public class CustomEnchants {
     public static final EnchantmentWrapper EXPERIENCE = new EnchantmentWrapper(
             "experience",
             "Experience",
             5,
-            generateItem(Material.LAPIS_BLOCK, 1)
+            itemStack(Material.LAPIS_BLOCK, 1),
+            new Enchantment[]{Enchantment.MENDING}
     );
 
     public static final EnchantmentWrapper AFTERMATH = new EnchantmentWrapper(
             "aftermath",
             "Aftermath",
             1,
-            generateItem(Material.TNT, 1)
+            itemStack(Material.TNT, 1)
     );
 
     public static final EnchantmentWrapper TELEKINESIS = new EnchantmentWrapper(
             "telekinesis",
             "Telekinesis",
             1,
-            generateItem(Material.ENDER_PEARL, 16)
+            itemStack(Material.ENDER_PEARL, 16)
     );
 
     public static final List<EnchantmentWrapper> customEnchants = Arrays.asList(
@@ -51,6 +52,8 @@ public class CustomEnchants {
     }
 
     public static void registerEnchant(Enchantment enchantment) {
+        // definitely not copied
+
         boolean registered = true;
 
         try {
