@@ -1,11 +1,11 @@
 package me.narutopig.bors;
 
 import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 
 import static me.narutopig.bors.util.General.power;
@@ -14,7 +14,7 @@ public class EnchantmentWrapper extends Enchantment {
     private final String name;
     private final int maxLevel;
     private Enchantment[] conflicts = new Enchantment[]{};
-    public ItemStack cost;
+    public final ItemStack cost;
 
     public EnchantmentWrapper(String key, String name, int maxLevel, ItemStack cost, Enchantment[] conflicts) {
         super(NamespacedKey.minecraft(key));
@@ -45,6 +45,7 @@ public class EnchantmentWrapper extends Enchantment {
         return newCost;
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return name;
@@ -60,6 +61,7 @@ public class EnchantmentWrapper extends Enchantment {
         return 1;
     }
 
+    @Nonnull
     @Override
     public EnchantmentTarget getItemTarget() {
         return EnchantmentTarget.BREAKABLE;
@@ -76,12 +78,12 @@ public class EnchantmentWrapper extends Enchantment {
     }
 
     @Override
-    public boolean conflictsWith(Enchantment other) {
+    public boolean conflictsWith(@Nonnull Enchantment other) {
         return Arrays.stream(conflicts).filter(enchantment -> enchantment.getKey().equals(other.getKey())).toList().size() > 0;
     }
 
     @Override
-    public boolean canEnchantItem(ItemStack item) {
+    public boolean canEnchantItem(@Nonnull ItemStack item) {
         return true;
     }
 }

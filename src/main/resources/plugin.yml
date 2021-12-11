@@ -1,6 +1,6 @@
 name: BoRS
 version: '${project.version}'
-main: me.narutopig.bors.Main
+main: Main
 api-version: 1.18
 authors: [ narutopig ]
 description: Bunch of Random Stuff

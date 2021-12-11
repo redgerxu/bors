@@ -11,7 +11,9 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +26,7 @@ import static me.narutopig.bors.util.General.toRoman;
 
 public class EnchantCommand implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @NonNull String label, @Nonnull String[] args) {
         if (sender instanceof Player player) {
             ItemStack hand = player.getInventory().getItemInMainHand();
             if (hand.getAmount() == 0) {
@@ -122,7 +124,8 @@ public class EnchantCommand implements CommandExecutor {
                         .append("\n");
             }
 
-            message.append(ChatColor.RED + "Ignored the following enchants:\n");
+            message.append(ChatColor.RED);
+            message.append("Ignored the following enchants:\n");
 
             for (Map.Entry<EnchantmentWrapper, String> entry : ignored.entrySet()) {
                 message.append("- ")
