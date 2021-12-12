@@ -23,7 +23,7 @@ object CustomEnchants {
         "telekinesis",
         "Telekinesis",
         1,
-        General.itemStack(Material.ENDER_PEARL, 16)
+        General.itemStack(Material.ENDER_PEARL, 4)
     )
     val customEnchants: MutableList<EnchantmentWrapper> = mutableListOf(
         AFTERMATH,
@@ -56,5 +56,10 @@ object CustomEnchants {
         if (registered) {
             println(enchantment.key.toString() + " was registered!")
         }
+    }
+
+    @JvmStatic
+    fun isCustomEnchantment(e: Enchantment): Boolean {
+        return customEnchants.any { it.key == e.key }
     }
 }

@@ -1,6 +1,7 @@
 package io.github.narutopig.bors
 
 import io.github.narutopig.bors.commands.EnchantCommand
+import io.github.narutopig.bors.commands.UpdateLoreCommand
 import io.github.narutopig.bors.enchantments.AftermathEnchant
 import io.github.narutopig.bors.enchantments.ExperienceEnchant
 import io.github.narutopig.bors.enchantments.TelekinesisEnchant
@@ -19,6 +20,7 @@ class Main : JavaPlugin() {
         registerEvent(AntiCombatLog())
         registerEvent(RecipeUnlocker())
         getCommand("borsenchant")!!.setExecutor(EnchantCommand())
+        getCommand("updatelore")!!.setExecutor(UpdateLoreCommand())
         addRecipes()
     }
 

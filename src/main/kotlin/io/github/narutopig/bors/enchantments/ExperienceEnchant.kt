@@ -12,10 +12,13 @@ class ExperienceEnchant : Listener {
         val amount = event.amount
         val player = event.player
         val hand = player.inventory.itemInMainHand
-        val offHand =player.inventory.itemInOffHand
+        val offHand = player.inventory.itemInOffHand
         val enchants = hand.enchantments
-        val experienceLevel = max(enchants.getOrDefault(CustomEnchants.EXPERIENCE, 0), offHand.enchantments.getOrDefault(
-            CustomEnchants.EXPERIENCE, 0))
+        val experienceLevel = max(
+            enchants.getOrDefault(CustomEnchants.EXPERIENCE, 0), offHand.enchantments.getOrDefault(
+                CustomEnchants.EXPERIENCE, 0
+            )
+        )
         if (amount > 0) {
             player.giveExp(amount * experienceLevel)
         }

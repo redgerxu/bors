@@ -1,11 +1,11 @@
 package io.github.narutopig.bors.commands
 
+import io.github.narutopig.bors.CostData
 import io.github.narutopig.bors.CustomEnchants
 import io.github.narutopig.bors.EnchantmentWrapper
-import io.github.narutopig.bors.CostData
 import io.github.narutopig.bors.util.Enchanting
 import io.github.narutopig.bors.util.General
-import org.bukkit.*
+import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -162,7 +162,7 @@ class EnchantCommand : CommandExecutor {
         fun getCostData(enchantmentWrapper: EnchantmentWrapper, inventory: Inventory, level: Int): CostData? {
             // returns null if cannot afford
             val cost = enchantmentWrapper.getCost(level)
-            val indices: MutableList<Int> = ArrayList()
+            val indices = mutableListOf<Int>()
             var lastOverflow = -1 // how much to remove
             val contents = inventory.contents
             var count = 0

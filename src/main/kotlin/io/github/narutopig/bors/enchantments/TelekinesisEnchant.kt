@@ -38,7 +38,7 @@ class TelekinesisEnchant : Listener {
         if (block.state is Container) return
         event.isDropItems = false
         val drops = block.getDrops(player.inventory.itemInMainHand)
-        if (drops.isEmpty()) player.inventory.addItem(drops.iterator().next())
+        if (drops.isNotEmpty()) player.inventory.addItem(drops.iterator().next())
         event.block.drops.clear()
     }
 }

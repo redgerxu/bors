@@ -12,7 +12,7 @@ class EnchantmentWrapper : Enchantment {
     private val name: String
     private val maxLevel: Int
     private var conflicts: Array<Enchantment> = arrayOf()
-    private val cost: ItemStack?
+    private var cost: ItemStack
 
     constructor(key: String, name: String, maxLevel: Int, cost: ItemStack, conflicts: Array<Enchantment>) : super(
         NamespacedKey.minecraft(
@@ -36,8 +36,8 @@ class EnchantmentWrapper : Enchantment {
     }
 
     fun getCost(level: Int): ItemStack {
-        val newLevel = General.power(2, level - 1)
-        val newCost = cost!!.clone()
+        val newLevel = General.power(2, level - 1) * this.cost.amount
+        val newCost = cost.clone()
         newCost.amount = newLevel
         return newCost
     }

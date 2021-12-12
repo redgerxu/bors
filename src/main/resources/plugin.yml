@@ -12,3 +12,7 @@ commands:
     aliases:
       - borse
       - be
+
+  updatelore:
+    description: "Updates the lore of an item (for use with grindstones)"
+    usage: /updatelore
