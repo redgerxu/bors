@@ -1,6 +1,6 @@
 name: BoRS
 version: '${project.version}'
-main: Main
+main: MainKt
 api-version: 1.18
 authors: [ narutopig ]
 description: Bunch of Random Stuff
@@ -12,7 +12,3 @@ commands:
     aliases:
       - borse
       - be
-
-  sethealth:
-    description: "Sets a player's max health"
-    usage: /sethealth <player> <health>
