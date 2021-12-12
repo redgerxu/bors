@@ -1,19 +1,18 @@
-package io.github.narutopig
+package io.github.narutopig.bors
 
-import io.github.narutopig.commands.EnchantCommand
-import io.github.narutopig.enchantments.AftermathEnchant
-import io.github.narutopig.enchantments.ExperienceEnchant
-import io.github.narutopig.enchantments.TelekinesisEnchant
-import io.github.narutopig.listeners.AntiCombatLog
-import io.github.narutopig.listeners.RecipeUnlocker
+import io.github.narutopig.bors.commands.EnchantCommand
+import io.github.narutopig.bors.enchantments.AftermathEnchant
+import io.github.narutopig.bors.enchantments.ExperienceEnchant
+import io.github.narutopig.bors.enchantments.TelekinesisEnchant
+import io.github.narutopig.bors.listeners.AntiCombatLog
+import io.github.narutopig.bors.listeners.RecipeUnlocker
 import org.bukkit.Bukkit
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 
-class Main : JavaPlugin(), Listener {
+class Main : JavaPlugin() {
     override fun onEnable() {
         CustomEnchants.register()
-        server.pluginManager.registerEvents(this, this)
         registerEvent(AftermathEnchant())
         registerEvent(ExperienceEnchant())
         registerEvent(TelekinesisEnchant())
@@ -29,11 +28,9 @@ class Main : JavaPlugin(), Listener {
         server.pluginManager.registerEvents(listener, this)
     }
 
-    companion object {
-        fun addRecipes() {
-            for (recipe in CustomRecipes.recipes) {
-                Bukkit.addRecipe(recipe)
-            }
+    private fun addRecipes() {
+        for (recipe in CustomRecipes.recipes) {
+            Bukkit.addRecipe(recipe)
         }
     }
 }

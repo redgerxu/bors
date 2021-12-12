@@ -1,6 +1,6 @@
-package io.github.narutopig
+package io.github.narutopig.bors
 
-import io.github.narutopig.util.General
+import io.github.narutopig.bors.util.General
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import java.util.*

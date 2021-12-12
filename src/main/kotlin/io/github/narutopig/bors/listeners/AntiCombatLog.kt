@@ -1,6 +1,6 @@
-package io.github.narutopig.listeners
+package io.github.narutopig.bors.listeners
 
-import io.github.narutopig.util.General
+import io.github.narutopig.bors.util.General
 import org.bukkit.BanList
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler

@@ -1,4 +1,4 @@
-package io.github.narutopig.util
+package io.github.narutopig.bors.util
 
 import org.bukkit.BanList
 import org.bukkit.Bukkit
@@ -24,12 +24,6 @@ object General {
         map[5] = "V"
         map[4] = "IV"
         map[1] = "I"
-    }
-
-    fun <K, V> printMap(map: Map<K, V>) {
-        for ((key, value) in map) {
-            println(key.toString() + ":" + value.toString())
-        }
     }
 
     fun itemStack(material: Material?, amount: Int): ItemStack {

@@ -1,10 +1,10 @@
-package io.github.narutopig.commands
+package io.github.narutopig.bors.commands
 
-import io.github.narutopig.CustomEnchants
-import io.github.narutopig.EnchantmentWrapper
-import io.github.narutopig.CostData
-import io.github.narutopig.util.Enchanting
-import io.github.narutopig.util.General
+import io.github.narutopig.bors.CustomEnchants
+import io.github.narutopig.bors.EnchantmentWrapper
+import io.github.narutopig.bors.CostData
+import io.github.narutopig.bors.util.Enchanting
+import io.github.narutopig.bors.util.General
 import org.bukkit.*
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -134,8 +134,7 @@ class EnchantCommand : CommandExecutor {
                     args[i].toInt() // illegal argument, so ignore it
                 } catch (e: NumberFormatException) {
                     // its an enchant (poggers)
-                    var enchant: EnchantmentWrapper
-                    enchant = try {
+                    val enchant: EnchantmentWrapper = try {
                         CustomEnchants.customEnchants.stream().filter { pog: EnchantmentWrapper? ->
                             pog!!.name.equals(
                                 args[i], ignoreCase = true
@@ -145,8 +144,7 @@ class EnchantCommand : CommandExecutor {
                         // enchant is not a custom one
                         continue
                     }
-                    var level: Int
-                    level = try {
+                    val level: Int = try {
                         // next arg is a number
                         args[i + 1].toInt()
                     } catch (e2: NumberFormatException) {

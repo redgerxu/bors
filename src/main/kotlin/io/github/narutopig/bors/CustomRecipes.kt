@@ -1,18 +1,18 @@
-package io.github.narutopig
+package io.github.narutopig.bors
 
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
-import java.util.*
 
 object CustomRecipes {
-    val bundle = bundleRecipe()
-    val experienceBottle = experienceBottleRecipe()
-    val saddle = saddleRecipe()
-    val trident = tridentRecipe()
-    val recipes = Arrays.asList(bundle, experienceBottle, saddle, trident)
-    fun bundleRecipe(): ShapedRecipe {
+    private val bundle = bundleRecipe()
+    private val experienceBottle = experienceBottleRecipe()
+    private val saddle = saddleRecipe()
+    private val trident = tridentRecipe()
+    val recipes = listOf(bundle, experienceBottle, saddle, trident)
+
+    private fun bundleRecipe(): ShapedRecipe {
         val bundle = ItemStack(Material.BUNDLE)
         val key = NamespacedKey.minecraft("bundle")
         val recipe = ShapedRecipe(key, bundle)
@@ -22,7 +22,7 @@ object CustomRecipes {
         return recipe
     }
 
-    fun experienceBottleRecipe(): ShapedRecipe {
+    private fun experienceBottleRecipe(): ShapedRecipe {
         val expBottle = ItemStack(Material.EXPERIENCE_BOTTLE)
         val key = NamespacedKey.minecraft("experience_bottle")
         val recipe = ShapedRecipe(key, expBottle)
@@ -32,7 +32,7 @@ object CustomRecipes {
         return recipe
     }
 
-    fun tridentRecipe(): ShapedRecipe {
+    private fun tridentRecipe(): ShapedRecipe {
         val trident = ItemStack(Material.TRIDENT)
         val key = NamespacedKey.minecraft("trident")
         val recipe = ShapedRecipe(key, trident)
@@ -44,7 +44,7 @@ object CustomRecipes {
         return recipe
     }
 
-    fun saddleRecipe(): ShapedRecipe {
+    private fun saddleRecipe(): ShapedRecipe {
         val saddle = ItemStack(Material.SADDLE)
         val key = NamespacedKey.minecraft("saddle")
         val recipe = ShapedRecipe(key, saddle)

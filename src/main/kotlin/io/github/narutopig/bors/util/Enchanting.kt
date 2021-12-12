@@ -1,4 +1,4 @@
-package io.github.narutopig.util
+package io.github.narutopig.bors.util
 
 import org.bukkit.*
 import org.bukkit.enchantments.Enchantment
@@ -7,17 +7,6 @@ import org.bukkit.inventory.ItemStack
 object Enchanting {
     fun hasEnchant(item: ItemStack, enchantment: Enchantment): Boolean {
         return item.enchantments[enchantment] != null
-    }
-
-    fun hasEnchant(enchants: Map<Enchantment?, Int?>, enchantment: Enchantment): Boolean {
-        return enchants[enchantment] != null
-    }
-
-    fun hasConflict(enchantment: Enchantment, enchants: Map<Enchantment, Int>): Boolean {
-        for (e in enchants.keys) {
-            if (enchantment.conflictsWith(e)) return true
-        }
-        return false
     }
 
     fun calculateLevel(e: Enchantment, a: Int, b: Int): Int {

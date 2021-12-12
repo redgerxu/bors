@@ -1,6 +1,6 @@
-package io.github.narutopig.enchantments
+package io.github.narutopig.bors.enchantments
 
-import io.github.narutopig.CustomEnchants
+import io.github.narutopig.bors.CustomEnchants
 import org.bukkit.GameMode
 import org.bukkit.block.Container
 import org.bukkit.entity.Player
@@ -38,7 +38,7 @@ class TelekinesisEnchant : Listener {
         if (block.state is Container) return
         event.isDropItems = false
         val drops = block.getDrops(player.inventory.itemInMainHand)
-        if (drops.isEmpty()) return
-        player.inventory.addItem(drops.iterator().next())
+        if (drops.isEmpty()) player.inventory.addItem(drops.iterator().next())
+        event.block.drops.clear()
     }
 }

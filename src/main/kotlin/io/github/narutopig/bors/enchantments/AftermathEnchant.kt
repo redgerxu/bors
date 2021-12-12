@@ -1,8 +1,8 @@
-package io.github.narutopig.enchantments
+package io.github.narutopig.bors.enchantments
 
-import io.github.narutopig.CustomEnchants
-import io.github.narutopig.util.Enchanting
-import io.github.narutopig.util.General
+import io.github.narutopig.bors.CustomEnchants
+import io.github.narutopig.bors.util.Enchanting
+import io.github.narutopig.bors.util.General
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
