@@ -12,9 +12,11 @@ import org.bukkit.entity.Player
 class UpdateLoreCommand : CommandExecutor {
     private fun toLore(e: Enchantment, level: Int): String {
         val s: StringBuilder = StringBuilder()
+        s.append(ChatColor.RESET)
         if (isCustomEnchantment(e)) s.append(ChatColor.GREEN)
+        else s.append(ChatColor.GRAY)
 
-        s.append(e.name)
+        s.append(e.key.key)
         s.append(" ")
         s.append(toRoman(level))
 

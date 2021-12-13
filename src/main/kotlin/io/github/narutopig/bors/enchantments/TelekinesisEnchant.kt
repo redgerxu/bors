@@ -17,11 +17,17 @@ class TelekinesisEnchant : Listener {
         if (event.entity is Player) {
             return
         }
+
+        val player = event.entity.killer
+
         if (killer == null) return
         val enchantments = killer.inventory.itemInMainHand.enchantments
         if (enchantments.getOrDefault(CustomEnchants.TELEKINESIS, 0) == 0) return
         val drops = event.drops
-        for (drop in drops) killer.inventory.addItem(drop)
+        drops.forEach {
+            player?.inventory?.addItem(it)
+        }
+
         event.drops.clear() // does this even work lol
     }
 
@@ -37,8 +43,8 @@ class TelekinesisEnchant : Listener {
         if (player.gameMode == GameMode.CREATIVE || player.gameMode == GameMode.SPECTATOR) return
         if (block.state is Container) return
         event.isDropItems = false
-        val drops = block.getDrops(player.inventory.itemInMainHand)
-        if (drops.isNotEmpty()) player.inventory.addItem(drops.iterator().next())
+        val drops = block.getDrops(player.inventory.itemInMainHand, player)
+        drops.forEach { player.inventory.addItem(it) }
         event.block.drops.clear()
     }
 }

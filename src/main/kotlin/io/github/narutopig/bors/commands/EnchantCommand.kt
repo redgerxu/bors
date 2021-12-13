@@ -23,7 +23,7 @@ class EnchantCommand : CommandExecutor {
         @Nonnull args: Array<String>
     ): Boolean {
         return if (sender is Player) {
-            val hand = sender.inventory.itemInMainHand
+            var hand = sender.inventory.itemInMainHand
             if (hand.amount == 0) {
                 sender.sendMessage(ChatColor.RED.toString() + "You need to hold an item to use this command.")
                 return false
@@ -91,7 +91,8 @@ class EnchantCommand : CommandExecutor {
             }
             for ((e, level) in toBeAdded) {
                 val newLevel = Enchanting.calculateLevel(e, level, handEnchants.getOrDefault(e, 0))
-                Enchanting.addEnchant(hand, e, newLevel)
+                val temp = Enchanting.addEnchant(hand, e, newLevel)
+                if (temp != null) hand = temp
             }
             sender.inventory.setItemInMainHand(hand)
             val message = StringBuilder(
