@@ -1,6 +1,6 @@
 name: BoRS
 version: '${project.version}'
-main: Main
+main: io.github.narutopig.bors.Main
 api-version: 1.18
 authors: [ narutopig ]
 description: Bunch of Random Stuff
@@ -13,6 +13,6 @@ commands:
       - borse
       - be
 
-  sethealth:
-    description: "Sets a player's max health"
-    usage: /sethealth <player> <health>
+  updatelore:
+    description: "Updates the lore of an item (for use with grindstones)"
+    usage: /updatelore
