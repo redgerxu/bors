@@ -2,10 +2,7 @@ package io.github.narutopig.bors.util
 
 import com.google.gson.GsonBuilder
 import io.github.narutopig.bors.EnchantmentWrapper
-import net.minecraft.nbt.CompoundTag
-import net.minecraft.nbt.IntTag
 import org.bukkit.*
-import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftItemStack
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
@@ -95,12 +92,6 @@ object Enchanting {
         item.itemMeta = itemMeta
         item.removeEnchantment(enchantment)
         item.addEnchantment(enchantment, level)
-        val craftItemStack = CraftItemStack.asNMSCopy(item)
-        val tagCompound =
-            if (craftItemStack.hasTag() && craftItemStack.tag != null) craftItemStack.tag else CompoundTag()
-        tagCompound?.put(enchantment.key.key, IntTag.valueOf(level))
-        craftItemStack.tag = tagCompound
-        item = CraftItemStack.asBukkitCopy(craftItemStack)
 
         return item
     }
