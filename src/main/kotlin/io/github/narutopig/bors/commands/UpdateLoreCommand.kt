@@ -1,6 +1,7 @@
 package io.github.narutopig.bors.commands
 
 import io.github.narutopig.bors.CustomEnchants.isCustomEnchantment
+import io.github.narutopig.bors.util.Enchanting
 import io.github.narutopig.bors.util.General.toRoman
 import org.bukkit.ChatColor
 import org.bukkit.command.Command
@@ -13,10 +14,19 @@ class UpdateLoreCommand : CommandExecutor {
     private fun toLore(e: Enchantment, level: Int): String {
         val s: StringBuilder = StringBuilder()
         s.append(ChatColor.RESET)
-        if (isCustomEnchantment(e)) s.append(ChatColor.GREEN)
-        else s.append(ChatColor.GRAY)
+        if (isCustomEnchantment(e)) {
+            s.append(ChatColor.GREEN)
+            s.append(e.name)
+        } else {
+            s.append(ChatColor.GRAY)
+            val enchantmentName = Enchanting.enchantmentNames[e.key.key]
+            if (enchantmentName != null) {
+                s.append(enchantmentName)
+            } else {
+                s.append("Unknown enchantment")
+            }
+        }
 
-        s.append(e.key.key)
         s.append(" ")
         s.append(toRoman(level))
 
@@ -28,7 +38,8 @@ class UpdateLoreCommand : CommandExecutor {
             val hand = sender.inventory.itemInMainHand
             val enchantments = hand.enchantments
 
-            val lore = enchantments.entries.map { (e, l) -> toLore(e, l) }
+            val lore = mutableListOf<String>()
+            enchantments.entries.forEach { (e, l) -> if (isCustomEnchantment(e)) lore.add(toLore(e, l)) }
 
             val itemMeta = hand.itemMeta
 

@@ -1,5 +1,6 @@
 package io.github.narutopig.bors.util
 
+import com.google.gson.GsonBuilder
 import io.github.narutopig.bors.EnchantmentWrapper
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.IntTag
@@ -8,7 +9,27 @@ import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftItemStack
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
+class EnchantmentData(name: String, displayName: String) {
+    val name: String
+    val displayName: String
+
+    init {
+        this.name = name
+        this.displayName = displayName
+    }
+}
+
 object Enchanting {
+    var enchantmentNames = mutableMapOf<String, String>()
+
+    init {
+        GsonBuilder().create().fromJson(Text.text(), Array<EnchantmentData>::class.java)
+            .toList()
+            .forEach {
+                enchantmentNames[it.name] = it.displayName
+            }
+    }
+
     fun hasEnchant(item: ItemStack, enchantment: Enchantment): Boolean {
         return item.enchantments[enchantment] != null
     }
@@ -75,7 +96,8 @@ object Enchanting {
         item.removeEnchantment(enchantment)
         item.addEnchantment(enchantment, level)
         val craftItemStack = CraftItemStack.asNMSCopy(item)
-        val tagCompound = if (craftItemStack.hasTag() && craftItemStack.tag != null) craftItemStack.tag else CompoundTag()
+        val tagCompound =
+            if (craftItemStack.hasTag() && craftItemStack.tag != null) craftItemStack.tag else CompoundTag()
         tagCompound?.put(enchantment.key.key, IntTag.valueOf(level))
         craftItemStack.tag = tagCompound
         item = CraftItemStack.asBukkitCopy(craftItemStack)
