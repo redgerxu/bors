@@ -2,14 +2,12 @@ package io.github.narutopig.bors.util
 
 import com.google.gson.GsonBuilder
 import io.github.narutopig.bors.EnchantmentWrapper
-import net.minecraft.nbt.CompoundTag
-import net.minecraft.nbt.IntTag
+import io.github.narutopig.bors.util.General.romanToInteger
 import org.bukkit.*
-import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftItemStack
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
-class EnchantmentData(name: String, displayName: String) {
+class EnchantmentName(name: String, displayName: String) {
     val name: String
     val displayName: String
 
@@ -19,11 +17,21 @@ class EnchantmentData(name: String, displayName: String) {
     }
 }
 
+class EnchantmentData(hasEnchant: Boolean, level: Int) {
+    val hasEnchant: Boolean
+    val level: Int
+
+    init {
+        this.hasEnchant = hasEnchant
+        this.level = level
+    }
+}
+
 object Enchanting {
     var enchantmentNames = mutableMapOf<String, String>()
 
     init {
-        GsonBuilder().create().fromJson(Text.text(), Array<EnchantmentData>::class.java)
+        GsonBuilder().create().fromJson(Text.text(), Array<EnchantmentName>::class.java)
             .toList()
             .forEach {
                 enchantmentNames[it.name] = it.displayName
@@ -55,14 +63,14 @@ object Enchanting {
             var i = 0
             for (line in lore) {
                 if (ChatColor.stripColor(line)!!.split(" ").toTypedArray()[0] == enchantment.name) {
-                    val newLine = ChatColor.GREEN.toString() + enchantment.name + " " + General.toRoman(level)
+                    val newLine = EnchantmentWrapper.color.toString() + enchantment.name + " " + General.toRoman(level)
                     lore[i] = newLine
                     break
                 }
                 i++
             }
         } else {
-            val newLine = ChatColor.GREEN.toString() + enchantment.name + " " + General.toRoman(level)
+            val newLine = EnchantmentWrapper.color.toString() + enchantment.name + " " + General.toRoman(level)
             lore.add(newLine)
         }
         itemMeta.lore = lore
@@ -81,27 +89,46 @@ object Enchanting {
             var i = 0
             for (line in lore) {
                 if (ChatColor.stripColor(line)!!.split(" ").toTypedArray()[0] == enchantment.name) {
-                    val newLine = ChatColor.GREEN.toString() + enchantment.name + " " + General.toRoman(level)
+                    val newLine = EnchantmentWrapper.color.toString() + enchantment.name + " " + General.toRoman(level)
                     lore[i] = newLine
                     break
                 }
                 i++
             }
         } else {
-            val newLine = ChatColor.GREEN.toString() + enchantment.name + " " + General.toRoman(level)
+            val newLine = EnchantmentWrapper.color.toString() + enchantment.name + " " + General.toRoman(level)
             lore.add(newLine)
         }
         itemMeta.lore = lore
         item.itemMeta = itemMeta
         item.removeEnchantment(enchantment)
         item.addEnchantment(enchantment, level)
-        val craftItemStack = CraftItemStack.asNMSCopy(item)
-        val tagCompound =
-            if (craftItemStack.hasTag() && craftItemStack.tag != null) craftItemStack.tag else CompoundTag()
-        tagCompound?.put(enchantment.key.key, IntTag.valueOf(level))
-        craftItemStack.tag = tagCompound
-        item = CraftItemStack.asBukkitCopy(craftItemStack)
 
         return item
+    }
+
+    fun getEnchantmentData(item: ItemStack, enchantment: String): EnchantmentData {
+        val itemMeta = item.itemMeta
+
+        if (itemMeta == null) {
+            return EnchantmentData(false, 0)
+        } else {
+            val lore = itemMeta.lore
+
+            return if (lore == null) {
+                EnchantmentData(false, 0)
+            } else {
+                var hasEnchant = false
+                var level = 0
+
+                lore.forEach {
+                    val stuff = ChatColor.stripColor(it)!!.split(" ")
+                    if (stuff[0] == enchantment) hasEnchant = true
+                    level = romanToInteger(stuff[1])
+                }
+
+                EnchantmentData(hasEnchant, level)
+            }
+        }
     }
 }

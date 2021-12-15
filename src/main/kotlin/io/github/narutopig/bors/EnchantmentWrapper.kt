@@ -1,6 +1,7 @@
 package io.github.narutopig.bors
 
 import io.github.narutopig.bors.util.General
+import org.bukkit.ChatColor
 import org.bukkit.NamespacedKey
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.enchantments.EnchantmentTarget
@@ -13,6 +14,10 @@ class EnchantmentWrapper : Enchantment {
     private val maxLevel: Int
     private var conflicts: Array<Enchantment> = arrayOf()
     private var cost: ItemStack
+
+    companion object {
+        val color = ChatColor.BLUE
+    }
 
     constructor(key: String, name: String, maxLevel: Int, cost: ItemStack, conflicts: Array<Enchantment>) : super(
         NamespacedKey.minecraft(

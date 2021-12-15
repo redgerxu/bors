@@ -58,8 +58,11 @@ object CustomEnchants {
         }
     }
 
-    @JvmStatic
     fun isCustomEnchantment(e: Enchantment): Boolean {
         return customEnchants.any { it.key == e.key }
+    }
+
+    fun getCustomEnchant(key: String): EnchantmentWrapper {
+        return customEnchants.first { it.key.key == key }
     }
 }

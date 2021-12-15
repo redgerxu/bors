@@ -1,7 +1,8 @@
 package io.github.narutopig.bors
 
-import io.github.narutopig.bors.commands.EnchantCommand
-import io.github.narutopig.bors.commands.UpdateLoreCommand
+import io.github.narutopig.bors.commands.BoRSEnchant
+import io.github.narutopig.bors.commands.Grindstone
+import io.github.narutopig.bors.commands.UpdateLore
 import io.github.narutopig.bors.enchantments.AftermathEnchant
 import io.github.narutopig.bors.enchantments.ExperienceEnchant
 import io.github.narutopig.bors.enchantments.TelekinesisEnchant
@@ -12,15 +13,21 @@ import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
+    companion object {
+        lateinit var instance: Main
+    }
+
     override fun onEnable() {
+        instance = this
         CustomEnchants.register()
         registerEvent(AftermathEnchant())
         registerEvent(ExperienceEnchant())
         registerEvent(TelekinesisEnchant())
         registerEvent(AntiCombatLog())
         registerEvent(RecipeUnlocker())
-        getCommand("borsenchant")!!.setExecutor(EnchantCommand())
-        getCommand("updatelore")!!.setExecutor(UpdateLoreCommand())
+        getCommand("borsenchant")!!.setExecutor(BoRSEnchant())
+        getCommand("grindstone")!!.setExecutor(Grindstone())
+        getCommand("updatelore")!!.setExecutor(UpdateLore())
         addRecipes()
     }
 

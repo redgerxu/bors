@@ -51,4 +51,25 @@ object General {
         Bukkit.getBanList(type!!).addBan(player.name, reason, date, "Console")
         player.kickPlayer("Banned for reason: $reason")
     }
+
+    fun romanToInteger(roman: String): Int {
+        val numbersMap: MutableMap<Char, Int> = HashMap()
+        numbersMap['I'] = 1
+        numbersMap['V'] = 5
+        numbersMap['X'] = 10
+        numbersMap['L'] = 50
+        numbersMap['C'] = 100
+        numbersMap['D'] = 500
+        numbersMap['M'] = 1000
+        var result = 0
+        for (i in roman.indices) {
+            val ch = roman[i] // Current Roman Character
+
+            //Case 1
+            result += if (i > 0 && numbersMap[ch]!! > numbersMap[roman[i - 1]]!!) {
+                numbersMap[ch]!! - 2 * numbersMap[roman[i - 1]]!!
+            } else numbersMap[ch]!!
+        }
+        return result
+    }
 }
