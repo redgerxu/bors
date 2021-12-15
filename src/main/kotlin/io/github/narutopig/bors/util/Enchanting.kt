@@ -2,11 +2,12 @@ package io.github.narutopig.bors.util
 
 import com.google.gson.GsonBuilder
 import io.github.narutopig.bors.EnchantmentWrapper
+import io.github.narutopig.bors.util.General.romanToInteger
 import org.bukkit.*
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
-class EnchantmentData(name: String, displayName: String) {
+class EnchantmentName(name: String, displayName: String) {
     val name: String
     val displayName: String
 
@@ -16,11 +17,21 @@ class EnchantmentData(name: String, displayName: String) {
     }
 }
 
+class EnchantmentData(hasEnchant: Boolean, level: Int) {
+    val hasEnchant: Boolean
+    val level: Int
+
+    init {
+        this.hasEnchant = hasEnchant
+        this.level = level
+    }
+}
+
 object Enchanting {
     var enchantmentNames = mutableMapOf<String, String>()
 
     init {
-        GsonBuilder().create().fromJson(Text.text(), Array<EnchantmentData>::class.java)
+        GsonBuilder().create().fromJson(Text.text(), Array<EnchantmentName>::class.java)
             .toList()
             .forEach {
                 enchantmentNames[it.name] = it.displayName
@@ -94,5 +105,30 @@ object Enchanting {
         item.addEnchantment(enchantment, level)
 
         return item
+    }
+
+    fun getEnchantmentData(item: ItemStack, enchantment: String): EnchantmentData {
+        val itemMeta = item.itemMeta
+
+        if (itemMeta == null) {
+            return EnchantmentData(false, 0)
+        } else {
+            val lore = itemMeta.lore
+
+            return if (lore == null) {
+                EnchantmentData(false, 0)
+            } else {
+                var hasEnchant = false
+                var level = 0
+
+                lore.forEach {
+                    val stuff = ChatColor.stripColor(it)!!.split(" ")
+                    if (stuff[0] == enchantment) hasEnchant = true
+                    level = romanToInteger(stuff[1])
+                }
+
+                EnchantmentData(hasEnchant, level)
+            }
+        }
     }
 }

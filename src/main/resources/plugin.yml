@@ -13,6 +13,10 @@ commands:
       - borse
       - be
 
+  grindstone:
+    description: "Removes all custom enchantments from the current item in your hand"
+    usage: /grindstone
+
   updatelore:
-    description: "Updates the lore of an item (for use with grindstones)"
+    description: "Converts all enchants from the green text to the blue text (needed for the enchantments to work)"
     usage: /updatelore

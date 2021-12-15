@@ -15,7 +15,7 @@ import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import javax.annotation.Nonnull
 
-class EnchantCommand : CommandExecutor {
+class BoRSEnchant : CommandExecutor {
     override fun onCommand(
         @Nonnull sender: CommandSender,
         @Nonnull command: Command,
