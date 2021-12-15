@@ -52,14 +52,14 @@ object Enchanting {
             var i = 0
             for (line in lore) {
                 if (ChatColor.stripColor(line)!!.split(" ").toTypedArray()[0] == enchantment.name) {
-                    val newLine = ChatColor.GREEN.toString() + enchantment.name + " " + General.toRoman(level)
+                    val newLine = EnchantmentWrapper.color.toString() + enchantment.name + " " + General.toRoman(level)
                     lore[i] = newLine
                     break
                 }
                 i++
             }
         } else {
-            val newLine = ChatColor.GREEN.toString() + enchantment.name + " " + General.toRoman(level)
+            val newLine = EnchantmentWrapper.color.toString() + enchantment.name + " " + General.toRoman(level)
             lore.add(newLine)
         }
         itemMeta.lore = lore
@@ -78,14 +78,14 @@ object Enchanting {
             var i = 0
             for (line in lore) {
                 if (ChatColor.stripColor(line)!!.split(" ").toTypedArray()[0] == enchantment.name) {
-                    val newLine = ChatColor.GREEN.toString() + enchantment.name + " " + General.toRoman(level)
+                    val newLine = EnchantmentWrapper.color.toString() + enchantment.name + " " + General.toRoman(level)
                     lore[i] = newLine
                     break
                 }
                 i++
             }
         } else {
-            val newLine = ChatColor.GREEN.toString() + enchantment.name + " " + General.toRoman(level)
+            val newLine = EnchantmentWrapper.color.toString() + enchantment.name + " " + General.toRoman(level)
             lore.add(newLine)
         }
         itemMeta.lore = lore

@@ -1,6 +1,7 @@
 package io.github.narutopig.bors.commands
 
 import io.github.narutopig.bors.CustomEnchants.isCustomEnchantment
+import io.github.narutopig.bors.EnchantmentWrapper
 import io.github.narutopig.bors.util.Enchanting
 import io.github.narutopig.bors.util.General.toRoman
 import org.bukkit.ChatColor
@@ -15,7 +16,7 @@ class UpdateLoreCommand : CommandExecutor {
         val s: StringBuilder = StringBuilder()
         s.append(ChatColor.RESET)
         if (isCustomEnchantment(e)) {
-            s.append(ChatColor.GREEN)
+            s.append(EnchantmentWrapper.color)
             s.append(e.name)
         } else {
             s.append(ChatColor.GRAY)

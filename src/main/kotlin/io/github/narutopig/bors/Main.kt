@@ -12,7 +12,12 @@ import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
+    companion object {
+        lateinit var instance: Main
+    }
+
     override fun onEnable() {
+        instance = this
         CustomEnchants.register()
         registerEvent(AftermathEnchant())
         registerEvent(ExperienceEnchant())
