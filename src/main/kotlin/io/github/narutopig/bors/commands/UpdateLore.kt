@@ -17,7 +17,7 @@ class UpdateLore : CommandExecutor {
         return if (sender is Player) {
             val hand = sender.inventory.itemInMainHand
             if (hand.itemMeta == null || hand.itemMeta!!.lore == null) {
-                sender.sendMessage(ChatColor.RED.toString() + "This item does not have an item meta.")
+                sender.sendMessage("${ChatColor.RED}This item does not have an item meta.")
             } else {
                 val lore = hand.itemMeta!!.lore
                 if (lore == null) {
@@ -27,11 +27,13 @@ class UpdateLore : CommandExecutor {
                         lore[i] =
                             lore[i].replace(colorToChar(ChatColor.GREEN), colorToChar(ChatColor.BLUE))
                     }
+                    hand.itemMeta!!.lore = lore
                 }
             }
+            sender.sendMessage("${ChatColor.GREEN}Updated lore!")
             true
         } else {
-            sender.sendMessage(ChatColor.RED.toString() + "You need to be a player to use this command.")
+            sender.sendMessage("${ChatColor.RED}You need to be a player to use this command.")
             false
         }
     }

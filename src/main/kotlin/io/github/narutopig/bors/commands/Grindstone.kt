@@ -12,15 +12,15 @@ class Grindstone : CommandExecutor {
             val handItemMeta = sender.inventory.itemInMainHand.itemMeta
 
             if (handItemMeta == null) {
-                sender.sendMessage(ChatColor.RED.toString() + "This item has no item meta.")
+                sender.sendMessage("${ChatColor.RED}This item has no item meta.")
             } else {
                 sender.inventory.itemInMainHand.itemMeta!!.lore = mutableListOf()
-                sender.sendMessage(ChatColor.GREEN.toString() + "Removed all custom enchantments.")
+                sender.sendMessage("${ChatColor.GREEN}Removed all custom enchantments.")
             }
 
             true
         } else {
-            sender.sendMessage(ChatColor.RED.toString() + "You need to be a player to use this command.")
+            sender.sendMessage("${ChatColor.RED}You need to be a player to use this command.")
             false
         }
     }

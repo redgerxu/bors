@@ -25,7 +25,7 @@ class BoRSEnchant : CommandExecutor {
         return if (sender is Player) {
             var hand = sender.inventory.itemInMainHand
             if (hand.amount == 0) {
-                sender.sendMessage(ChatColor.RED.toString() + "You need to hold an item to use this command.")
+                sender.sendMessage("${ChatColor.RED}You need to hold an item to use this command.")
                 return false
             }
             val toBeAdded = getArguments(args) // stuff to add
@@ -120,7 +120,7 @@ class BoRSEnchant : CommandExecutor {
             sender.sendMessage(message.toString())
             true
         } else {
-            sender.sendMessage(ChatColor.RED.toString() + "You need to be a player to use this command.")
+            sender.sendMessage("${ChatColor.RED}You need to be a player to use this command.")
             false
         }
     }
