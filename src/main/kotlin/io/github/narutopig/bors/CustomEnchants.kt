@@ -1,8 +1,8 @@
 package io.github.narutopig.bors
 
-import io.github.narutopig.bors.util.General
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
+import org.bukkit.inventory.ItemStack
 import java.util.*
 import java.util.stream.Collectors
 
@@ -11,19 +11,19 @@ object CustomEnchants {
         "experience",
         "Experience",
         5,
-        General.itemStack(Material.LAPIS_BLOCK, 1), arrayOf(Enchantment.MENDING)
+        ItemStack(Material.LAPIS_BLOCK, 1)
     )
     val AFTERMATH = EnchantmentWrapper(
         "aftermath",
         "Aftermath",
         1,
-        General.itemStack(Material.TNT, 1)
+        ItemStack(Material.TNT, 1)
     )
     val TELEKINESIS = EnchantmentWrapper(
         "telekinesis",
         "Telekinesis",
         1,
-        General.itemStack(Material.ENDER_PEARL, 4)
+        ItemStack(Material.ENDER_PEARL, 4)
     )
     val customEnchants: MutableList<EnchantmentWrapper> = mutableListOf(
         AFTERMATH,

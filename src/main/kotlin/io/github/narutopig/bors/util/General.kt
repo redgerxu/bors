@@ -2,9 +2,7 @@ package io.github.narutopig.bors.util
 
 import org.bukkit.BanList
 import org.bukkit.Bukkit
-import org.bukkit.Material
 import org.bukkit.entity.Player
-import org.bukkit.inventory.ItemStack
 import java.util.*
 
 object General {
@@ -24,10 +22,6 @@ object General {
         map[5] = "V"
         map[4] = "IV"
         map[1] = "I"
-    }
-
-    fun itemStack(material: Material?, amount: Int): ItemStack {
-        return ItemStack(material!!, amount)
     }
 
     fun power(base: Int, exponent: Int): Int {
