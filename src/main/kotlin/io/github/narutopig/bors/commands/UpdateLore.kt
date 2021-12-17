@@ -27,7 +27,7 @@ class UpdateLore : CommandExecutor {
                         lore[i] =
                             lore[i].replace(colorToChar(ChatColor.GREEN), colorToChar(ChatColor.BLUE))
                     }
-                    hand.itemMeta!!.lore = lore
+                    sender.inventory.itemInMainHand.itemMeta!!.lore = lore
                 }
             }
             sender.sendMessage("${ChatColor.GREEN}Updated lore!")
