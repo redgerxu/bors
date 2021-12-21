@@ -3,6 +3,7 @@ package io.github.narutopig.bors
 import io.github.narutopig.bors.commands.BoRSEnchant
 import io.github.narutopig.bors.commands.Grindstone
 import io.github.narutopig.bors.commands.UpdateLore
+import io.github.narutopig.bors.commands.completers.EnchantCompleter
 import io.github.narutopig.bors.enchantments.AftermathEnchant
 import io.github.narutopig.bors.enchantments.ExperienceEnchant
 import io.github.narutopig.bors.enchantments.PoisonEnchant
@@ -10,16 +11,19 @@ import io.github.narutopig.bors.enchantments.TelekinesisEnchant
 import io.github.narutopig.bors.listeners.AntiCombatLog
 import io.github.narutopig.bors.listeners.RecipeUnlocker
 import org.bukkit.Bukkit
+import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
     companion object {
         lateinit var instance: Main
+        lateinit var configuration: FileConfiguration
     }
 
     override fun onEnable() {
         instance = this
+        configuration = config
         CustomEnchants.register()
         registerEvent(AftermathEnchant())
         registerEvent(ExperienceEnchant())
@@ -28,6 +32,7 @@ class Main : JavaPlugin() {
         registerEvent(AntiCombatLog())
         registerEvent(RecipeUnlocker())
         getCommand("borsenchant")!!.setExecutor(BoRSEnchant())
+        getCommand("borsenchant")!!.tabCompleter = EnchantCompleter()
         getCommand("grindstone")!!.setExecutor(Grindstone())
         getCommand("updatelore")!!.setExecutor(UpdateLore())
         addRecipes()

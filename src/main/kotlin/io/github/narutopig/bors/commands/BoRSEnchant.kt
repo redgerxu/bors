@@ -125,70 +125,67 @@ class BoRSEnchant : CommandExecutor {
         }
     }
 
-    companion object {
-        // utility functions
-        fun getArguments(args: Array<String>): MutableMap<EnchantmentWrapper, Int> {
-            // returns a map with all the enchants that need to be applied
-            val arguments: MutableMap<EnchantmentWrapper, Int> = HashMap()
-            for (i in args.indices) {
-                try {
-                    args[i].toInt() // illegal argument, so ignore it
-                } catch (e: NumberFormatException) {
-                    // its an enchant (poggers)
-                    val enchant: EnchantmentWrapper = try {
-                        CustomEnchants.customEnchants.stream().filter { pog: EnchantmentWrapper? ->
-                            pog!!.name.equals(
-                                args[i], ignoreCase = true
-                            )
-                        }.toArray()[0] as EnchantmentWrapper
-                    } catch (e1: ArrayIndexOutOfBoundsException) {
-                        // enchant is not a custom one
-                        continue
-                    }
-                    val level: Int = try {
-                        // next arg is a number
-                        args[i + 1].toInt()
-                    } catch (e2: NumberFormatException) {
-                        // next arg is not a number
-                        1
-                    } catch (e2: ArrayIndexOutOfBoundsException) {
-                        1
-                    }
-                    arguments[enchant] = level
-                }
-            }
-            return arguments
-        }
-
-        fun getCostData(enchantmentWrapper: EnchantmentWrapper, inventory: Inventory, level: Int): CostData? {
-            // returns null if cannot afford
-            val cost = enchantmentWrapper.getCost(level)
-            val indices = mutableListOf<Int>()
-            var lastOverflow = -1 // how much to remove
-            val contents = inventory.contents
-            var count = 0
-            var c = 0
-            for (slot in contents) {
-                if (slot == null || slot.type != cost.type) {
-                    c++
+    private fun getArguments(args: Array<String>): MutableMap<EnchantmentWrapper, Int> {
+        // returns a map with all the enchants that need to be applied
+        val arguments: MutableMap<EnchantmentWrapper, Int> = HashMap()
+        for (i in args.indices) {
+            try {
+                args[i].toInt() // illegal argument, so ignore it
+            } catch (e: NumberFormatException) {
+                // its an enchant (poggers)
+                val enchant: EnchantmentWrapper = try {
+                    CustomEnchants.customEnchants.stream().filter { pog: EnchantmentWrapper? ->
+                        pog!!.name.equals(
+                            args[i], ignoreCase = true
+                        )
+                    }.toArray()[0] as EnchantmentWrapper
+                } catch (e1: ArrayIndexOutOfBoundsException) {
+                    // enchant is not a custom one
                     continue
                 }
-                count += slot.amount
-                indices.add(c)
-                if (count >= cost.amount) {
-                    lastOverflow = count - cost.amount
-                    break
+                val level: Int = try {
+                    // next arg is a number
+                    args[i + 1].toInt()
+                } catch (e2: NumberFormatException) {
+                    // next arg is not a number
+                    1
+                } catch (e2: ArrayIndexOutOfBoundsException) {
+                    1
                 }
-                c++
+                arguments[enchant] = level
             }
-            if (lastOverflow == -1) {
-                return null
-            }
-            val poggies = IntArray(indices.size)
-            for (i in poggies.indices) {
-                poggies[i] = indices[i]
-            }
-            return CostData(poggies, lastOverflow)
         }
+        return arguments
+    }
+
+    private fun getCostData(enchantmentWrapper: EnchantmentWrapper, inventory: Inventory, level: Int): CostData? {
+        // returns null if cannot afford
+        val cost = enchantmentWrapper.getCost(level)
+        val indices = mutableListOf<Int>()
+        var lastOverflow = -1 // how much to remove
+        val contents = inventory.contents
+        var count = 0
+        var c = 0
+        for (slot in contents) {
+            if (slot == null || slot.type != cost.type) {
+                c++
+                continue
+            }
+            count += slot.amount
+            indices.add(c)
+            if (count >= cost.amount) {
+                lastOverflow = count - cost.amount
+                break
+            }
+            c++
+        }
+        if (lastOverflow == -1) {
+            return null
+        }
+        val poggies = IntArray(indices.size)
+        for (i in poggies.indices) {
+            poggies[i] = indices[i]
+        }
+        return CostData(poggies, lastOverflow)
     }
 }
