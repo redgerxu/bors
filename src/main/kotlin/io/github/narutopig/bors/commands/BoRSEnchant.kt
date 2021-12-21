@@ -1,8 +1,8 @@
 package io.github.narutopig.bors.commands
 
-import io.github.narutopig.bors.CostData
-import io.github.narutopig.bors.CustomEnchants
-import io.github.narutopig.bors.EnchantmentWrapper
+import io.github.narutopig.bors.enchantments.CostData
+import io.github.narutopig.bors.enchantments.CustomEnchants
+import io.github.narutopig.bors.enchantments.EnchantmentWrapper
 import io.github.narutopig.bors.util.Enchanting
 import io.github.narutopig.bors.util.General
 import org.bukkit.ChatColor

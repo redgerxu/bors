@@ -1,4 +1,4 @@
-package io.github.narutopig.bors
+package io.github.narutopig.bors.enchantments
 
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment

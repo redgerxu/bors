@@ -1,4 +1,4 @@
-package io.github.narutopig.bors
+package io.github.narutopig.bors.enchantments
 
 import io.github.narutopig.bors.util.General
 import org.bukkit.ChatColor
