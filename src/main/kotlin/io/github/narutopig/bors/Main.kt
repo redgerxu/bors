@@ -4,7 +4,11 @@ import io.github.narutopig.bors.commands.BoRSEnchant
 import io.github.narutopig.bors.commands.Grindstone
 import io.github.narutopig.bors.commands.UpdateLore
 import io.github.narutopig.bors.commands.completers.EnchantCompleter
-import io.github.narutopig.bors.enchantments.*
+import io.github.narutopig.bors.enchanting.*
+import io.github.narutopig.bors.enchanting.enchantments.AftermathEnchant
+import io.github.narutopig.bors.enchanting.enchantments.ExperienceEnchant
+import io.github.narutopig.bors.enchanting.enchantments.PoisonEnchant
+import io.github.narutopig.bors.enchanting.enchantments.TelekinesisEnchant
 import io.github.narutopig.bors.listeners.AntiCombatLog
 import io.github.narutopig.bors.listeners.RecipeUnlocker
 import org.bukkit.Bukkit

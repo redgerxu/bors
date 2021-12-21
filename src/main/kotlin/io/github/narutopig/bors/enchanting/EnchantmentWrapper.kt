@@ -1,43 +1,35 @@
-package io.github.narutopig.bors.enchantments
+package io.github.narutopig.bors.enchanting
 
 import io.github.narutopig.bors.util.General
 import org.bukkit.ChatColor
 import org.bukkit.NamespacedKey
+import org.bukkit.attribute.AttributeModifier
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.enchantments.EnchantmentTarget
 import org.bukkit.inventory.ItemStack
-import java.util.*
 import javax.annotation.Nonnull
 
-class EnchantmentWrapper : Enchantment {
-    private val name: String
-    private val maxLevel: Int
-    private var conflicts: Array<Enchantment> = arrayOf()
-    private var cost: ItemStack
+class EnchantmentWrapper(
+    key: String,
+    private val name: String,
+    private val maxLevel: Int,
+    private var cost: ItemStack,
+    private var target: EnchantmentTarget,
+) : Enchantment(
+    NamespacedKey.minecraft(
+        key
+    )
+) {
+
+    constructor(
+        key: String,
+        name: String,
+        maxLevel: Int,
+        cost: ItemStack
+    ) : this(key, name, maxLevel, cost, EnchantmentTarget.BREAKABLE)
 
     companion object {
         val color = ChatColor.BLUE
-    }
-
-    constructor(key: String, name: String, maxLevel: Int, cost: ItemStack, conflicts: Array<Enchantment>) : super(
-        NamespacedKey.minecraft(
-            key
-        )
-    ) {
-        this.name = name
-        this.maxLevel = maxLevel
-        this.cost = cost
-        this.conflicts = conflicts
-    }
-
-    constructor(key: String, name: String, maxLevel: Int, cost: ItemStack) : super(
-        NamespacedKey.minecraft(
-            key
-        )
-    ) {
-        this.name = name
-        this.maxLevel = maxLevel
-        this.cost = cost
     }
 
     fun getCost(level: Int): ItemStack {
@@ -74,7 +66,8 @@ class EnchantmentWrapper : Enchantment {
     }
 
     override fun conflictsWith(@Nonnull other: Enchantment): Boolean {
-        return Arrays.stream(conflicts).anyMatch { enchantment: Enchantment -> enchantment.key == other.key }
+        // TODO: Actually check conflicts or something
+        return false
     }
 
     override fun canEnchantItem(@Nonnull item: ItemStack): Boolean {

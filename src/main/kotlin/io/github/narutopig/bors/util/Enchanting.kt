@@ -1,7 +1,7 @@
 package io.github.narutopig.bors.util
 
 import com.google.gson.GsonBuilder
-import io.github.narutopig.bors.enchantments.EnchantmentWrapper
+import io.github.narutopig.bors.enchanting.EnchantmentWrapper
 import io.github.narutopig.bors.util.General.romanToInteger
 import org.bukkit.*
 import org.bukkit.enchantments.Enchantment

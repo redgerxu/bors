@@ -1,6 +1,6 @@
 package io.github.narutopig.bors.commands.completers
 
-import io.github.narutopig.bors.enchantments.CustomEnchants
+import io.github.narutopig.bors.enchanting.CustomEnchants
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter

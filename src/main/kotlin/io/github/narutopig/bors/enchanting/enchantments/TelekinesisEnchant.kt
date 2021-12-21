@@ -1,5 +1,6 @@
-package io.github.narutopig.bors.enchantments
+package io.github.narutopig.bors.enchanting.enchantments
 
+import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.util.Enchanting.getEnchantmentData
 import org.bukkit.GameMode
 import org.bukkit.block.Container
