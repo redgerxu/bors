@@ -80,7 +80,7 @@ object Enchanting {
     }
 
     fun addEnchant(itemStack: ItemStack, enchantment: EnchantmentWrapper, level: Int): ItemStack? {
-        var item = itemStack.clone()
+        val item = itemStack.clone()
         if (!canEnchant(item, enchantment)) return null
         val itemMeta = item.itemMeta ?: return null
         var lore = itemMeta.lore
@@ -107,6 +107,10 @@ object Enchanting {
         return item
     }
 
+    /*
+    * @param  item Item to check for the enchantment data
+    * @param enchantment Name of enchantment as is displayed in Minecraft English (US)
+     */
     fun getEnchantmentData(item: ItemStack, enchantment: String): EnchantmentData {
         val itemMeta = item.itemMeta
 

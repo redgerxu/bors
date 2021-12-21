@@ -5,6 +5,7 @@ import io.github.narutopig.bors.commands.Grindstone
 import io.github.narutopig.bors.commands.UpdateLore
 import io.github.narutopig.bors.enchantments.AftermathEnchant
 import io.github.narutopig.bors.enchantments.ExperienceEnchant
+import io.github.narutopig.bors.enchantments.PoisonEnchant
 import io.github.narutopig.bors.enchantments.TelekinesisEnchant
 import io.github.narutopig.bors.listeners.AntiCombatLog
 import io.github.narutopig.bors.listeners.RecipeUnlocker
@@ -22,6 +23,7 @@ class Main : JavaPlugin() {
         CustomEnchants.register()
         registerEvent(AftermathEnchant())
         registerEvent(ExperienceEnchant())
+        registerEvent(PoisonEnchant())
         registerEvent(TelekinesisEnchant())
         registerEvent(AntiCombatLog())
         registerEvent(RecipeUnlocker())
