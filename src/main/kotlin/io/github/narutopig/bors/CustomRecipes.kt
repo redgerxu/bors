@@ -1,16 +1,32 @@
 package io.github.narutopig.bors
 
+import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.attribute.Attribute
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
 
 object CustomRecipes {
     private val bundle = bundleRecipe()
     private val experienceBottle = experienceBottleRecipe()
+    private val minerHelmet = minerHelmetRecipe()
+    private val minerChestplate = minerChestplateRecipe()
+    private val minerLeggings = minerLeggingsRecipe()
+    private val minerBoots = minerBootsRecipe()
     private val saddle = saddleRecipe()
     private val trident = tridentRecipe()
-    val recipes = listOf(bundle, experienceBottle, saddle, trident)
+
+    val recipes = listOf(
+        bundle,
+        experienceBottle,
+        minerHelmet,
+        minerChestplate,
+        minerLeggings,
+        minerBoots,
+        saddle,
+        trident
+    )
 
     private fun bundleRecipe(): ShapedRecipe {
         val bundle = ItemStack(Material.BUNDLE)
@@ -53,6 +69,58 @@ object CustomRecipes {
         recipe.setIngredient('L', Material.LEATHER)
         recipe.setIngredient('U', Material.IRON_INGOT)
         recipe.setIngredient('S', Material.STRING)
+        return recipe
+    }
+
+    private fun minerHelmetRecipe(): ShapedRecipe {
+        val item = ItemStack(Material.IRON_HELMET)
+        // itemmeta is only null when it is air
+        item.itemMeta!!.setDisplayName("${ChatColor.DARK_AQUA}Miner's Helmet")
+        val key = NamespacedKey.minecraft("iron_helmet")
+        val recipe = ShapedRecipe(key, item)
+        recipe.shape("DID", "D D")
+
+        recipe.setIngredient('D', Material.COBBLED_DEEPSLATE)
+        recipe.setIngredient('I', Material.IRON_BLOCK)
+
+        return recipe
+    }
+
+    private fun minerChestplateRecipe(): ShapedRecipe {
+        val chestplate = ItemStack(Material.IRON_CHESTPLATE)
+        chestplate.itemMeta!!.setDisplayName("${ChatColor.DARK_AQUA}Miner's Chestplate")
+        val key = NamespacedKey.minecraft("iron_chestplate")
+        val recipe = ShapedRecipe(key, chestplate)
+        recipe.shape("D D", "DID", "DDD")
+
+        recipe.setIngredient('D', Material.COBBLED_DEEPSLATE)
+        recipe.setIngredient('I', Material.IRON_BLOCK)
+
+        return recipe
+    }
+
+    private fun minerLeggingsRecipe(): ShapedRecipe {
+        val leggings = ItemStack(Material.IRON_LEGGINGS)
+        leggings.itemMeta!!.setDisplayName("${ChatColor.DARK_AQUA}Miner's Leggings")
+        val key = NamespacedKey.minecraft("iron_leggings")
+        val recipe = ShapedRecipe(key, leggings)
+        recipe.shape("DID", "D D", "D D")
+
+        recipe.setIngredient('D', Material.COBBLED_DEEPSLATE)
+        recipe.setIngredient('I', Material.IRON_BLOCK)
+
+        return recipe
+    }
+
+    private fun minerBootsRecipe(): ShapedRecipe {
+        val boots = ItemStack(Material.IRON_BOOTS)
+        boots.itemMeta!!.setDisplayName("${ChatColor.DARK_AQUA}Miner's Boots")
+        val key = NamespacedKey.minecraft("iron_boots")
+        val recipe = ShapedRecipe(key, boots)
+        recipe.shape("I I", "I I")
+
+        recipe.setIngredient('I', Material.IRON_BLOCK)
+
         return recipe
     }
 }
