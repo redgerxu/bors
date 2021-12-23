@@ -10,6 +10,7 @@ import io.github.narutopig.bors.enchanting.enchantments.ExperienceEnchant
 import io.github.narutopig.bors.enchanting.enchantments.PoisonEnchant
 import io.github.narutopig.bors.enchanting.enchantments.TelekinesisEnchant
 import io.github.narutopig.bors.listeners.AntiCombatLog
+import io.github.narutopig.bors.listeners.MinerArmor
 import io.github.narutopig.bors.listeners.RecipeUnlocker
 import org.bukkit.Bukkit
 import org.bukkit.configuration.file.FileConfiguration
@@ -31,6 +32,7 @@ class Main : JavaPlugin() {
         registerEvent(PoisonEnchant())
         registerEvent(TelekinesisEnchant())
         registerEvent(AntiCombatLog())
+        registerEvent(MinerArmor())
         registerEvent(RecipeUnlocker())
         getCommand("borsenchant")!!.setExecutor(BoRSEnchant())
         getCommand("borsenchant")!!.tabCompleter = EnchantCompleter()

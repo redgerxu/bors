@@ -9,10 +9,10 @@ import org.bukkit.inventory.ShapedRecipe
 object CustomRecipes {
     private val bundle = bundleRecipe()
     private val experienceBottle = experienceBottleRecipe()
-    private val minerHelmet = minerHelmetRecipe()
-    private val minerChestplate = minerChestplateRecipe()
-    private val minerLeggings = minerLeggingsRecipe()
-    private val minerBoots = minerBootsRecipe()
+    val minerHelmet = minerHelmetRecipe()
+    val minerChestplate = minerChestplateRecipe()
+    val minerLeggings = minerLeggingsRecipe()
+    val minerBoots = minerBootsRecipe()
     private val saddle = saddleRecipe()
     private val trident = tridentRecipe()
 
