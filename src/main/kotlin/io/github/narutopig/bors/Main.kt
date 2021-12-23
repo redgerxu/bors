@@ -48,7 +48,6 @@ class Main : JavaPlugin() {
     private fun addRecipes() {
         for (recipe in CustomRecipes.recipes) {
             Bukkit.addRecipe(recipe)
-            println(recipe.result.itemMeta!!.displayName)
         }
     }
 }
