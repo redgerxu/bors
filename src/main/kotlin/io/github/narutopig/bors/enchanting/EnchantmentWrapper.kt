@@ -53,7 +53,7 @@ class EnchantmentWrapper(
 
     @Nonnull
     override fun getItemTarget(): EnchantmentTarget {
-        return EnchantmentTarget.BREAKABLE
+        return target
     }
 
     override fun isTreasure(): Boolean {
