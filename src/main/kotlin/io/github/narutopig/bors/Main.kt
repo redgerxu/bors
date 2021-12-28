@@ -1,5 +1,6 @@
 package io.github.narutopig.bors
 
+import io.github.narutopig.bors.armor.MinerArmor
 import io.github.narutopig.bors.commands.BoRSEnchant
 import io.github.narutopig.bors.commands.Grindstone
 import io.github.narutopig.bors.commands.UpdateLore
@@ -11,7 +12,6 @@ import io.github.narutopig.bors.enchanting.enchantments.PoisonEnchant
 import io.github.narutopig.bors.enchanting.enchantments.TelekinesisEnchant
 import io.github.narutopig.bors.listeners.AntiCombatLog
 import io.github.narutopig.bors.listeners.Lifesteal
-import io.github.narutopig.bors.listeners.MinerArmor
 import io.github.narutopig.bors.listeners.RecipeUnlocker
 import org.bukkit.Bukkit
 import org.bukkit.configuration.file.FileConfiguration

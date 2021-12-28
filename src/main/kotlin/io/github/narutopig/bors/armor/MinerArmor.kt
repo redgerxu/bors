@@ -1,4 +1,4 @@
-package io.github.narutopig.bors.listeners
+package io.github.narutopig.bors.armor
 
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
