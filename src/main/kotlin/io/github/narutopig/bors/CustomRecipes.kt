@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.SkullMeta
 object CustomRecipes {
     private val bundle = bundleRecipe()
     private val experienceBottle = experienceBottleRecipe()
-    private val heart = heartRecipe()
+    val heart = heartRecipe()
     private val minerHelmet = minerHelmetRecipe()
     private val minerChestplate = minerChestplateRecipe()
     private val minerLeggings = minerLeggingsRecipe()

@@ -25,3 +25,7 @@ commands:
   updatelore:
     description: "Converts all enchants from the green text to the blue text (needed for the enchantments to work)"
     usage: /updatelore
+
+  withdraw:
+    description: "Turns health into heart items"
+    usage: /withdraw <amount>
