@@ -10,7 +10,10 @@ class RecipeUnlocker : Listener {
     fun onPlayerJoin(event: PlayerJoinEvent) {
         val player = event.player
         for (recipe in CustomRecipes.recipes) {
-            player.discoverRecipe(recipe.result.type.key)
+            try {
+                player.discoverRecipe(recipe.result.type.key)
+            } catch (ignored: Exception) {
+            }
         }
     }
 }
