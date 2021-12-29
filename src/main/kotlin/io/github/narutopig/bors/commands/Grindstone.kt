@@ -8,7 +8,7 @@ import org.bukkit.entity.Player
 
 class Grindstone : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        return if (sender is Player) {
+        if (sender is Player) {
             val handItemMeta = sender.inventory.itemInMainHand.itemMeta
 
             if (handItemMeta == null) {
@@ -17,11 +17,10 @@ class Grindstone : CommandExecutor {
                 sender.inventory.itemInMainHand.itemMeta!!.lore = mutableListOf()
                 sender.sendMessage("${ChatColor.GREEN}Removed all custom enchantments.")
             }
-
-            true
         } else {
             sender.sendMessage("${ChatColor.RED}You need to be a player to use this command.")
-            false
         }
+
+        return true
     }
 }

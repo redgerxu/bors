@@ -14,7 +14,7 @@ class UpdateLore : CommandExecutor {
     }
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        return if (sender is Player) {
+        if (sender is Player) {
             val hand = sender.inventory.itemInMainHand
             if (hand.itemMeta == null || hand.itemMeta!!.lore == null) {
                 sender.sendMessage("${ChatColor.RED}This item does not have an item meta.")
@@ -31,10 +31,10 @@ class UpdateLore : CommandExecutor {
                 }
             }
             sender.sendMessage("${ChatColor.GREEN}Updated lore!")
-            true
         } else {
             sender.sendMessage("${ChatColor.RED}You need to be a player to use this command.")
-            false
         }
+
+        return true
     }
 }

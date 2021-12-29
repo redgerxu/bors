@@ -30,14 +30,9 @@ class SetHealth : CommandExecutor, TabExecutor {
     }
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        if (!sender.isOp) {
-            sender.sendMessage("${ChatColor.RED}You need to be an operator to use this command")
-            return false
-        }
-
         if (args.size < 2) {
             sender.sendMessage("${ChatColor.RED}Insufficient arguments")
-            return false
+            return true
         }
 
         val target = Bukkit.getPlayer(args[0])
@@ -52,7 +47,7 @@ class SetHealth : CommandExecutor, TabExecutor {
             sender.sendMessage("${ChatColor.GREEN}Set ${target.name}'s health to $amount")
         } catch (e: NumberFormatException) {
             sender.sendMessage("${ChatColor.RED}Invalid number")
-            return false
+            return true
         }
 
         return true

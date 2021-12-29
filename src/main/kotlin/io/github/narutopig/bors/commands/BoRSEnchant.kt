@@ -40,7 +40,7 @@ class BoRSEnchant : CommandExecutor, TabExecutor {
             var hand = sender.inventory.itemInMainHand
             if (hand.amount == 0) {
                 sender.sendMessage("${ChatColor.RED}You need to hold an item to use this command.")
-                return false
+                return true
             }
             val toBeAdded = getArguments(args) // stuff to add
             val handEnchants = hand.enchantments // current enchants on item
