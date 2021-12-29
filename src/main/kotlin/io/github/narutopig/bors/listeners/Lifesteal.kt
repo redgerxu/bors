@@ -16,8 +16,10 @@ class Lifesteal : Listener {
     private val killManager: MutableMap<UUID, Long> = HashMap() // keeps tracked of how long ago you were killed
 
 
-    private fun setMaxHealth(player: Player, hearts: Double) {
-        player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.baseValue = hearts
+    companion object {
+        fun setMaxHealth(player: Player, hearts: Double) {
+            player.getAttribute(Attribute.GENERIC_MAX_HEALTH)!!.baseValue = hearts
+        }
     }
 
     @EventHandler

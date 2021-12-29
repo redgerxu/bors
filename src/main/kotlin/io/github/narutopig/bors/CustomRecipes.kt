@@ -31,7 +31,7 @@ object CustomRecipes {
         trident
     )
 
-    fun heartRecipe(): ShapedRecipe {
+    private fun heartRecipe(): ShapedRecipe {
         // lmao everything is deprecated
         val skull = ItemStack(Material.LEGACY_SKULL_ITEM, 1, 3.toShort())
         val skullMeta = skull.itemMeta as SkullMeta?

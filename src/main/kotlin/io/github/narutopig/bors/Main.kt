@@ -3,8 +3,8 @@ package io.github.narutopig.bors
 import io.github.narutopig.bors.armor.MinerArmor
 import io.github.narutopig.bors.commands.BoRSEnchant
 import io.github.narutopig.bors.commands.Grindstone
+import io.github.narutopig.bors.commands.SetHealth
 import io.github.narutopig.bors.commands.UpdateLore
-import io.github.narutopig.bors.commands.completers.EnchantCompleter
 import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.enchanting.enchantments.AftermathEnchant
 import io.github.narutopig.bors.enchanting.enchantments.ExperienceEnchant
@@ -37,8 +37,10 @@ class Main : JavaPlugin() {
         registerEvent(MinerArmor())
         registerEvent(RecipeUnlocker())
         getCommand("borsenchant")!!.setExecutor(BoRSEnchant())
-        getCommand("borsenchant")!!.tabCompleter = EnchantCompleter()
+        getCommand("borsenchant")!!.tabCompleter = BoRSEnchant()
         getCommand("grindstone")!!.setExecutor(Grindstone())
+        getCommand("sethealth")!!.setExecutor(SetHealth())
+        getCommand("sethealth")!!.tabCompleter = SetHealth()
         getCommand("updatelore")!!.setExecutor(UpdateLore())
         addRecipes()
     }

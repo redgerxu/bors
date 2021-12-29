@@ -9,13 +9,27 @@ import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
+import org.bukkit.command.TabExecutor
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import javax.annotation.Nonnull
 
-class BoRSEnchant : CommandExecutor {
+class BoRSEnchant : CommandExecutor, TabExecutor {
+    override fun onTabComplete(
+        sender: CommandSender,
+        command: Command,
+        alias: String,
+        args: Array<String>
+    ): List<String>? {
+        if (sender is Player) {
+            return CustomEnchants.customEnchants.map { enchant -> enchant.key.key }.toMutableList()
+        }
+
+        return null
+    }
+
     override fun onCommand(
         @Nonnull sender: CommandSender,
         @Nonnull command: Command,
