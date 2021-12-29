@@ -43,8 +43,10 @@ object CustomRecipes {
         val key = NamespacedKey(Main.instance, "heart")
         val recipe = ShapedRecipe(key, skull)
 
-        recipe.shape("DDD")
-        recipe.setIngredient('D', Material.DIRT)
+        recipe.shape("DGD", "GAG", "DGD")
+        recipe.setIngredient('D', Material.DIAMOND_BLOCK)
+        recipe.setIngredient('G', Material.GOLD_BLOCK)
+        recipe.setIngredient('A', Material.GOLDEN_APPLE)
 
         return recipe
     }
