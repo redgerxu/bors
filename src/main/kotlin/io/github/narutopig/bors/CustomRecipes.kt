@@ -11,7 +11,6 @@ import org.bukkit.inventory.meta.SkullMeta
 object CustomRecipes {
     private val bundle = bundleRecipe()
     private val experienceBottle = experienceBottleRecipe()
-    val heart = heartRecipe()
     private val minerHelmet = minerHelmetRecipe()
     private val minerChestplate = minerChestplateRecipe()
     private val minerLeggings = minerLeggingsRecipe()
@@ -22,7 +21,6 @@ object CustomRecipes {
     val recipes = listOf(
         bundle,
         experienceBottle,
-        heart,
         minerHelmet,
         minerChestplate,
         minerLeggings,
@@ -30,26 +28,6 @@ object CustomRecipes {
         saddle,
         trident
     )
-
-    private fun heartRecipe(): ShapedRecipe {
-        // lmao everything is deprecated
-        val skull = ItemStack(Material.LEGACY_SKULL_ITEM, 1, 3.toShort())
-        val skullMeta = skull.itemMeta as SkullMeta?
-        skullMeta!!.setDisplayName("${ChatColor.RED}Heart")
-        skullMeta.lore = listOf("${ChatColor.GRAY}Right click this item to gain 1 permanent heart")
-        skullMeta.owner = "A_HOMO_SAPIEN"
-        skull.itemMeta = skullMeta
-
-        val key = NamespacedKey(Main.instance, "heart")
-        val recipe = ShapedRecipe(key, skull)
-
-        recipe.shape("DGD", "GAG", "DGD")
-        recipe.setIngredient('D', Material.DIAMOND_BLOCK)
-        recipe.setIngredient('G', Material.GOLD_BLOCK)
-        recipe.setIngredient('A', Material.GOLDEN_APPLE)
-
-        return recipe
-    }
 
     private fun bundleRecipe(): ShapedRecipe {
         val bundle = ItemStack(Material.BUNDLE)
