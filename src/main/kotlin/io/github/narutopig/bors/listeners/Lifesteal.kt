@@ -23,27 +23,31 @@ class Lifesteal : Listener {
     fun onItemUse(event: PlayerInteractEvent) {
         val player = event.player
 
-        if (event.action == Action.RIGHT_CLICK_BLOCK) {
-            if (event.clickedBlock == null) return
-            val drops = event.clickedBlock!!.drops
-            if (drops.size != 1) return
-            val head = drops.toList()[0]
-            if (head != null) {
-                val meta = head.itemMeta as SkullMeta
+        try {
+            if (event.action == Action.RIGHT_CLICK_BLOCK) {
+                if (event.clickedBlock == null) return
+                val drops = event.clickedBlock!!.drops
+                if (drops.size != 1) return
+                val head = drops.toList()[0]
+                if (head != null) {
+                    val meta = head.itemMeta as SkullMeta
 
-                if (meta.owner == "A_HOMO_SAPIEN") {
-                    setMaxHealth(player, player.maxHealth + 2)
-                    event.clickedBlock!!.setType(Material.AIR, false)
+                    if (meta.owner == "A_HOMO_SAPIEN") {
+                        setMaxHealth(player, player.maxHealth + 2)
+                        event.clickedBlock!!.setType(Material.AIR, false)
+                    }
                 }
             }
-        }
+        } catch (_: Exception) {}
     }
 
     @EventHandler
     fun onPlayerDeath(event: PlayerDeathEvent) {
         val killed = event.entity
-        val killer = killed.killer ?: return
-        setMaxHealth(killed, killed.maxHealth - 2)
-        setMaxHealth(killed, killer.maxHealth + 2)
+        val killer = killed.killer
+        if (killer != null) {
+            setMaxHealth(killed, killed.maxHealth - 2)
+            setMaxHealth(killed, killer.maxHealth + 2)
+        }
     }
 }
