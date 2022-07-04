@@ -1,44 +1,30 @@
 package io.github.narutopig.bors.util
 
-import java.net.URI
-import java.net.URLEncoder
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse
-import java.nio.charset.StandardCharsets
+import com.google.gson.JsonObject
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 
-class Discord {
-    companion object {
+object Discord {
+    private val client = HttpClientBuilder.create().build()
 
-        val client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build()
+    fun sendMessage(webhook: String, message: String) {
+        val body = HashMap<String, String>()
+        body["content"] = message
+        val jsonBody = JsonObject()
+        jsonBody.addProperty("content", message)
 
-        private fun buildFormDataFromMap(data: HashMap<String, String>): HttpRequest.BodyPublisher {
-            // thanks to https://mkyong.com/Java/how-to-send-http-request-getpost-in-Java/
-            val builder = StringBuilder()
-            for ((key, value) in data) {
-                if (builder.isNotEmpty()) {
-                    builder.append("&")
-                }
-                builder.append(URLEncoder.encode(key, StandardCharsets.UTF_8))
-                builder.append("=")
-                builder.append(URLEncoder.encode(value, StandardCharsets.UTF_8))
-            }
-            return HttpRequest.BodyPublishers.ofString(builder.toString())
-        }
+        val entity = StringEntity("content=${message}", ContentType.APPLICATION_FORM_URLENCODED)
+        val request = HttpPost(webhook)
+        request.entity = entity
 
-        fun sendMessage(webhook: String, message: String) {
-            val body = HashMap<String, String>()
-            body["content"] = message
-
-            val request = HttpRequest.newBuilder()
-                .uri(URI.create(webhook))
-                .POST(buildFormDataFromMap(body))
-                .build()
-            val response = client.send(request, HttpResponse.BodyHandlers.ofString())
-            if (response.statusCode() != 200) {
-                throw Exception()
-            }
+        val response = client.execute(request)
+        if (response.statusLine.statusCode != 200) {
+            throw Exception(response.toString())
         }
     }
 }

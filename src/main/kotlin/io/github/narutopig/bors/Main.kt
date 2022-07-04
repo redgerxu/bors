@@ -31,9 +31,7 @@ class Main : JavaPlugin() {
         registerEvent(ExperienceEnchant())
         registerEvent(PoisonEnchant())
         registerEvent(TelekinesisEnchant())
-        if (config.getBoolean("config.commandlog")) {
-            registerEvent(ConsoleCommand())
-        }
+        registerEvent(ConsoleCommand())
         // registerEvent(AntiCombatLog())
         registerEvent(RecipeUnlocker())
         getCommand("borsenchant")!!.setExecutor(BoRSEnchant())

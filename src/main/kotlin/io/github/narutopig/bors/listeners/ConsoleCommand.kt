@@ -11,12 +11,16 @@ import org.bukkit.event.server.ServerCommandEvent
 class ConsoleCommand : Listener {
     @EventHandler
     fun commandUsed(event: ServerCommandEvent) {
-        val message = "${ChatColor.DARK_RED}[Server]: Console used /${event.command}"
-        Bukkit.broadcastMessage(message)
+        if (Main.configuration.getString(("options.commandlog")) == "false") return
+        val message = "[Server]: Console used /${event.command}"
+        Bukkit.broadcastMessage("${ChatColor.DARK_RED}${message}")
+        val webhook = Main.configuration.getString("options.webhook") ?: throw NullPointerException()
         try {
-            val webhook = Main.configuration.getString("options.webhook") ?: throw NullPointerException()
             Discord.sendMessage(webhook, message)
-        } catch (ignored: Exception) {
+        } catch (e: Exception) {
+            if (webhook.trim() == "") return
+            println("Webhook failed")
+            e.printStackTrace()
         }
     }
 }
