@@ -9,17 +9,20 @@ import org.bukkit.command.TabExecutor
 import org.bukkit.entity.Player
 
 class Options : CommandExecutor, TabExecutor {
-    var configPaths: List<String>
+    private var configPaths: Set<String>
 
     init {
         val paths = Main.configuration.getKeys(true)
+        val toRemove = mutableListOf<String>()
         for (path in paths) {
             if (Main.configuration.isConfigurationSection(path)) {
-                paths.remove(path)
+                toRemove.add(path)
             }
         }
-        @Suppress("UNCHECKED_CAST")
-        configPaths = paths as List<String>
+        for (path in toRemove) {
+            paths.remove(path)
+        }
+        configPaths = paths
     }
 
     override fun onTabComplete(
@@ -29,7 +32,7 @@ class Options : CommandExecutor, TabExecutor {
         args: Array<String>
     ): List<String>? {
         if (sender is Player) {
-            return configPaths
+            return configPaths.toList()
         }
 
         return null

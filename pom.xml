@@ -79,9 +79,13 @@
         </plugins>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
+                 <filtering>true</filtering>
+                 <targetPath>.</targetPath>
+                 <directory>${project.basedir}/src/main/resources/</directory>
+                 <includes>
+                    <include>**/*.yml</include>
+                 </includes>
+               </resource>
         </resources>
     </build>
 
