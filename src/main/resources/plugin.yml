@@ -1,7 +1,7 @@
 name: BoRS
 version: '${project.version}'
 main: io.github.narutopig.bors.Main
-api-version: 1.18
+api-version: 1.19
 authors: [ narutopig ]
 description: Bunch of Random Stuff
 
@@ -20,3 +20,8 @@ commands:
   updatelore:
     description: "Converts all enchants from the green text to the blue text (needed for the enchantments to work)"
     usage: /updatelore
+
+  options:
+    description: "Changes server options"
+    permission: op
+    usage: /options <option> <value>
