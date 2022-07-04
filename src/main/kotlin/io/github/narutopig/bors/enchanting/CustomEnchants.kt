@@ -18,7 +18,7 @@ object CustomEnchants {
         "experience",
         "Experience",
         5,
-        ItemStack(Material.LAPIS_BLOCK, 1)
+        ItemStack(Material.LAPIS_BLOCK, 2)
     )
 
     val POISON = EnchantmentWrapper(
@@ -28,12 +28,14 @@ object CustomEnchants {
         ItemStack(Material.SPIDER_EYE, 4)
     )
 
+    // might be removed later
     val TELEKINESIS = EnchantmentWrapper(
         "telekinesis",
         "Telekinesis",
         1,
         ItemStack(Material.ENDER_PEARL, 4)
     )
+
     val customEnchants: MutableList<EnchantmentWrapper> = mutableListOf(
         AFTERMATH,
         EXPERIENCE,

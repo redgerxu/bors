@@ -28,7 +28,7 @@ class EnchantmentWrapper(
     ) : this(key, name, maxLevel, cost, EnchantmentTarget.BREAKABLE)
 
     companion object {
-        val color = ChatColor.BLUE
+        val color = ChatColor.GRAY
     }
 
     fun getCost(level: Int): ItemStack {

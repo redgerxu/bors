@@ -17,15 +17,6 @@ commands:
     description: "Removes all custom enchantments from the current item in your hand"
     usage: /grindstone
 
-  sethealth:
-    description: "Sets the maximum health of a player"
-    usage: /sethealth <player> <amount>
-    permission: op
-
   updatelore:
     description: "Converts all enchants from the green text to the blue text (needed for the enchantments to work)"
     usage: /updatelore
-
-  withdraw:
-    description: "Turns health into heart items"
-    usage: /withdraw <amount>

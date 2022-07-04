@@ -21,11 +21,10 @@ class UpdateLore : CommandExecutor {
             } else {
                 val lore = hand.itemMeta!!.lore
                 if (lore == null) {
-                    sender.sendMessage(ChatColor.GREEN.toString() + "Updated lore!")
+                    sender.sendMessage("${ChatColor.GREEN}Updated lore!")
                 } else {
                     for (i in lore.indices) {
-                        lore[i] =
-                            lore[i].replace(colorToChar(ChatColor.GREEN), colorToChar(ChatColor.BLUE))
+                        lore[i] = lore[i].replace(colorToChar(ChatColor.GREEN), colorToChar(ChatColor.GRAY))
                     }
                     sender.inventory.itemInMainHand.itemMeta!!.lore = lore
                 }
