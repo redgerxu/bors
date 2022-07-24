@@ -1,8 +1,6 @@
 package io.github.narutopig.bors.util
 
 import com.google.gson.JsonObject
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -18,12 +16,12 @@ object Discord {
         val jsonBody = JsonObject()
         jsonBody.addProperty("content", message)
 
-        val entity = StringEntity("content=${message}", ContentType.APPLICATION_FORM_URLENCODED)
+        val entity = StringEntity(jsonBody.toString(), ContentType.APPLICATION_JSON)
         val request = HttpPost(webhook)
         request.entity = entity
 
         val response = client.execute(request)
-        if (response.statusLine.statusCode != 200) {
+        if (response.statusLine.statusCode < 200 || response.statusLine.statusCode > 299) {
             throw Exception(response.toString())
         }
     }
