@@ -11,7 +11,7 @@ import org.bukkit.event.server.ServerCommandEvent
 class ConsoleCommand : Listener {
     @EventHandler
     fun commandUsed(event: ServerCommandEvent) {
-        if (Main.configuration.getString(("options.commandlog")) == "false" || event.command.lowercase() == "help") return
+        if (Main.configuration.getString(("options.commandlog")) == "false" || event.command.lowercase() == "list") return
         // server automatically sends /help (at least for apex) hosting
         val message = "[Server]: Console used /${event.command}"
         Bukkit.broadcastMessage("${ChatColor.DARK_RED}${message}")
