@@ -4,7 +4,7 @@ import io.github.narutopig.bors.Main
 import io.github.narutopig.bors.enchanting.CostData
 import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.enchanting.EnchantmentWrapper
-import io.github.narutopig.bors.util.Enchanting
+import io.github.narutopig.bors.enchanting.util.Enchanting
 import io.github.narutopig.bors.util.General
 import io.github.narutopig.bors.util.Messages
 import org.bukkit.ChatColor
@@ -12,7 +12,6 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabExecutor
-import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
@@ -61,43 +60,36 @@ class BoRSEnchant : CommandExecutor, TabExecutor {
                 return true
             }
             val toBeAdded = getArguments(args) // stuff to add
-            val handEnchants = hand.enchantments // current enchants on item
+            val handEnchants = Enchanting.getItemCustomEnchants(hand)
             // enchantmentwrapper, reason
             val ignored: MutableMap<EnchantmentWrapper, String> = HashMap() // ignored stuffs (for debug mainly i guess)
             val cannotEnchant = "this item cannot have this enchantment."
             val cannotAfford = "you do not have the required materials for apply this enchantment."
             val alreadyContains = "this item already has this enchantment at a higher level."
             val conflicts = "this enchantment conflicts with another enchantment on this item."
-            val toBeRemoved: MutableList<EnchantmentWrapper> = ArrayList()
-            val handEnchantList: List<Enchantment> = ArrayList(handEnchants.keys)
-
             // gets all the enchants that need to be ignored
             for ((e, level) in toBeAdded) {
 
                 // is there a higher level
                 if (level < handEnchants.getOrDefault(e, 0)) {
-                    toBeRemoved.add(e)
                     ignored[e] = alreadyContains
                     continue
                 }
 
                 // can the item be enchanted
                 if (!Enchanting.canEnchant(hand, e)) {
-                    toBeRemoved.add(e)
                     ignored[e] = cannotEnchant
                     continue
                 }
 
                 // can the player afford
                 if (getCostData(e, sender.inventory, level) == null) {
-                    toBeRemoved.add(e)
                     ignored[e] = cannotAfford
                 }
 
                 // are there any conflicts
-                for (enchantment in handEnchantList) {
+                for (enchantment in handEnchants.keys.toList()) {
                     if (e.conflictsWith(enchantment)) {
-                        toBeRemoved.add(e)
                         ignored[e] = conflicts
                         break
                     }
@@ -105,9 +97,11 @@ class BoRSEnchant : CommandExecutor, TabExecutor {
             }
 
             // remove all enchantments that should not be there
-            for (e in toBeRemoved) {
+            for (e in ignored.keys) {
                 toBeAdded.remove(e)
             }
+
+            // apply cost
             for ((e, level) in toBeAdded) {
                 val costData = getCostData(e, sender.inventory, level)
                 if (costData != null) {
@@ -121,6 +115,8 @@ class BoRSEnchant : CommandExecutor, TabExecutor {
                     }
                 }
             }
+
+            // adds enchants
             for ((e, level) in toBeAdded) {
                 val newLevel = Enchanting.calculateLevel(e, level, handEnchants.getOrDefault(e, 0))
                 val temp = Enchanting.addEnchant(hand, e, newLevel)

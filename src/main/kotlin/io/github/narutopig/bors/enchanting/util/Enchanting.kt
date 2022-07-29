@@ -1,8 +1,7 @@
-package io.github.narutopig.bors.util
+package io.github.narutopig.bors.enchanting.util
 
 import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.enchanting.EnchantmentWrapper
-import io.github.narutopig.bors.enchanting.util.EnchantmentData
 import io.github.narutopig.bors.util.General.romanToInteger
 import io.github.narutopig.bors.util.General.toRoman
 import org.bukkit.ChatColor
@@ -70,7 +69,7 @@ object Enchanting {
         }
     }
 
-    private fun getItemCustomEnchants(item: ItemStack?): MutableMap<EnchantmentWrapper, Int> {
+    fun getItemCustomEnchants(item: ItemStack?): MutableMap<EnchantmentWrapper, Int> {
         val res = mutableMapOf<EnchantmentWrapper, Int>()
 
         if (item == null) return res

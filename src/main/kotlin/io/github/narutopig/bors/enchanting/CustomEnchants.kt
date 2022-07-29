@@ -7,13 +7,6 @@ import java.util.*
 import java.util.stream.Collectors
 
 object CustomEnchants {
-    val AFTERMATH = EnchantmentWrapper(
-        "aftermath",
-        "Aftermath",
-        1,
-        ItemStack(Material.TNT, 1)
-    )
-
     val EXPERIENCE = EnchantmentWrapper(
         "experience",
         "Experience",
@@ -37,7 +30,6 @@ object CustomEnchants {
     )
 
     val customEnchants: MutableList<EnchantmentWrapper> = mutableListOf(
-        AFTERMATH,
         EXPERIENCE,
         POISON,
         TELEKINESIS
