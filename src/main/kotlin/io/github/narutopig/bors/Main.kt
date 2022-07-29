@@ -5,10 +5,10 @@ import io.github.narutopig.bors.commands.Grindstone
 import io.github.narutopig.bors.commands.Options
 import io.github.narutopig.bors.commands.UpdateLore
 import io.github.narutopig.bors.enchanting.CustomEnchants
-import io.github.narutopig.bors.enchanting.enchantments.AftermathEnchant
 import io.github.narutopig.bors.enchanting.enchantments.ExperienceEnchant
 import io.github.narutopig.bors.enchanting.enchantments.PoisonEnchant
 import io.github.narutopig.bors.enchanting.enchantments.TelekinesisEnchant
+import io.github.narutopig.bors.listeners.AntiCombatLog
 import io.github.narutopig.bors.listeners.ConsoleCommand
 import io.github.narutopig.bors.listeners.RecipeUnlocker
 import org.bukkit.Bukkit
@@ -27,12 +27,11 @@ class Main : JavaPlugin() {
         instance = this
         configuration = config
         CustomEnchants.register()
-        registerEvent(AftermathEnchant())
         registerEvent(ExperienceEnchant())
         registerEvent(PoisonEnchant())
         registerEvent(TelekinesisEnchant())
         registerEvent(ConsoleCommand())
-        // registerEvent(AntiCombatLog())
+        registerEvent(AntiCombatLog())
         registerEvent(RecipeUnlocker())
         getCommand("borsenchant")!!.setExecutor(BoRSEnchant())
         getCommand("borsenchant")!!.tabCompleter = BoRSEnchant()

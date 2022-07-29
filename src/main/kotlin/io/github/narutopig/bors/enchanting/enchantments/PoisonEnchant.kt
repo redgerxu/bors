@@ -1,5 +1,6 @@
 package io.github.narutopig.bors.enchanting.enchantments
 
+import io.github.narutopig.bors.Main
 import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.util.Enchanting.getEnchantmentData
 import org.bukkit.entity.Player
@@ -13,6 +14,8 @@ import org.bukkit.potion.PotionEffectType
 class PoisonEnchant : Listener {
     @EventHandler
     fun onPlayerHit(event: EntityDamageByEntityEvent) {
+        if (!Main.configuration.getBoolean("enchantments.poison")) return
+
         if (event.damager is Player) {
             val damager = event.damager as Player
             val eData = getEnchantmentData(damager.inventory.itemInMainHand, CustomEnchants.POISON.name)

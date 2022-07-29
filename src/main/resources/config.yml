@@ -1,3 +1,16 @@
-options:
-  commandlog: false
-  webhook: ''
+commandlog: false
+webhook: ''
+
+commands:
+  borsenchant: true
+  grindstone: true
+  updatelore: true
+
+enchantments:
+  experience: true
+  poison: true
+  telekinesis: true
+
+plugins:
+  anticombatlog: false
+  consolecommand: false

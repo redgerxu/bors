@@ -1,10 +1,10 @@
 package io.github.narutopig.bors.util
 
 import com.google.gson.JsonObject
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.client.methods.HttpPost
+import org.apache.http.entity.ContentType
+import org.apache.http.entity.StringEntity
+import org.apache.http.impl.client.HttpClientBuilder
 
 
 object Discord {

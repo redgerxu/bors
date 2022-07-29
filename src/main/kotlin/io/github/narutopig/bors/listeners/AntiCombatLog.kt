@@ -1,5 +1,6 @@
 package io.github.narutopig.bors.listeners
 
+import io.github.narutopig.bors.Main
 import io.github.narutopig.bors.util.General
 import org.bukkit.BanList
 import org.bukkit.entity.Player
@@ -15,6 +16,8 @@ class AntiCombatLog : Listener {
 
     @EventHandler
     fun onCombat(event: EntityDamageByEntityEvent) {
+        if (!Main.configuration.getBoolean("plugins.anticombatlog")) return
+
         if (event.entity is Player && event.damager is Player) {
             val damaged = event.entity as Player
             val damager = event.damager as Player
@@ -26,6 +29,8 @@ class AntiCombatLog : Listener {
 
     @EventHandler
     fun onPlayerLeave(event: PlayerQuitEvent) {
+        if (!Main.configuration.getBoolean("plugins.anticombatlog")) return
+
         val player = event.player
         val uuid = player.uniqueId
         val lastHit = combatManager.getOrDefault(uuid, 0L)

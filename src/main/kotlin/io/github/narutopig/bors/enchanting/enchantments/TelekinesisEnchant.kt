@@ -1,5 +1,6 @@
 package io.github.narutopig.bors.enchanting.enchantments
 
+import io.github.narutopig.bors.Main
 import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.util.Enchanting.getEnchantmentData
 import org.bukkit.GameMode
@@ -13,6 +14,8 @@ import org.bukkit.event.entity.EntityDeathEvent
 class TelekinesisEnchant : Listener {
     @EventHandler
     fun onEntityDeath(event: EntityDeathEvent) {
+        if (!Main.configuration.getBoolean("enchantments.telekinesis")) return
+
         // entity drops telekinesis
         val killer = event.entity.killer
         if (event.entity is Player) {
@@ -34,6 +37,8 @@ class TelekinesisEnchant : Listener {
 
     @EventHandler
     fun onBlockBreak(event: BlockBreakEvent) {
+        if (!Main.configuration.getBoolean("enchantments.telekinesis")) return
+
         // block drops telekinesis
         val player = event.player
         val block = event.block

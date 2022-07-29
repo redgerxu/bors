@@ -1,5 +1,7 @@
 package io.github.narutopig.bors.commands
 
+import io.github.narutopig.bors.Main
+import io.github.narutopig.bors.util.Messages
 import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -8,6 +10,11 @@ import org.bukkit.entity.Player
 
 class Grindstone : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
+        if (!Main.configuration.getBoolean("commands.grindstone")) {
+            sender.sendMessage(Messages.disabledCommand)
+            return false
+        }
+
         if (sender is Player) {
             val handItemMeta = sender.inventory.itemInMainHand.itemMeta
 

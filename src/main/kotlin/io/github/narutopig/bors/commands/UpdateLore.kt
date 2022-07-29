@@ -1,5 +1,7 @@
 package io.github.narutopig.bors.commands
 
+import io.github.narutopig.bors.Main
+import io.github.narutopig.bors.util.Messages
 import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -14,6 +16,11 @@ class UpdateLore : CommandExecutor {
     }
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
+        if (!Main.configuration.getBoolean("commands.updatelore")) {
+            sender.sendMessage(Messages.disabledCommand)
+            return false
+        }
+
         if (sender is Player) {
             val hand = sender.inventory.itemInMainHand
             if (hand.itemMeta == null || hand.itemMeta!!.lore == null) {

@@ -17,7 +17,7 @@ object CustomEnchants {
     val EXPERIENCE = EnchantmentWrapper(
         "experience",
         "Experience",
-        5,
+        3,
         ItemStack(Material.LAPIS_BLOCK, 2)
     )
 
@@ -74,7 +74,8 @@ object CustomEnchants {
         return customEnchants.any { it.key == e.key }
     }
 
-    fun getCustomEnchant(key: String): EnchantmentWrapper {
-        return customEnchants.first { it.key.key == key }
+    fun getCustomEnchant(key: String, case: Boolean = false): EnchantmentWrapper {
+        if (case) return customEnchants.first { it.key.key == key }
+        return customEnchants.first { it.key.key.lowercase() == key.lowercase() }
     }
 }

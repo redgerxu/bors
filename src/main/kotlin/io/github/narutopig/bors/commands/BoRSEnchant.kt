@@ -1,10 +1,12 @@
 package io.github.narutopig.bors.commands
 
+import io.github.narutopig.bors.Main
 import io.github.narutopig.bors.enchanting.CostData
 import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.enchanting.EnchantmentWrapper
 import io.github.narutopig.bors.util.Enchanting
 import io.github.narutopig.bors.util.General
+import io.github.narutopig.bors.util.Messages
 import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -24,7 +26,18 @@ class BoRSEnchant : CommandExecutor, TabExecutor {
         args: Array<String>
     ): List<String>? {
         if (sender is Player) {
-            return CustomEnchants.customEnchants.map { enchant -> enchant.key.key }.toMutableList()
+            val options = CustomEnchants.customEnchants.map { enchant -> enchant.key.key }.toMutableList()
+            if (args.isNotEmpty()) {
+                try {
+                    val lastEnchant = CustomEnchants.getCustomEnchant(args.last())
+                    val maxLevel = lastEnchant.maxLevel
+                    for (i in 1..maxLevel) {
+                        options.add(i.toString())
+                    }
+                } catch (ignored: NoSuchElementException) {
+                }
+            }
+            return options
         }
 
         return null
@@ -36,6 +49,11 @@ class BoRSEnchant : CommandExecutor, TabExecutor {
         label: String,
         @Nonnull args: Array<String>
     ): Boolean {
+        if (!Main.configuration.getBoolean("commands.borsenchant")) {
+            sender.sendMessage(Messages.disabledCommand)
+            return false
+        }
+
         return if (sender is Player) {
             var hand = sender.inventory.itemInMainHand
             if (hand.amount == 0) {
@@ -147,12 +165,8 @@ class BoRSEnchant : CommandExecutor, TabExecutor {
                 args[i].toInt() // illegal argument, so ignore it
             } catch (e: NumberFormatException) {
                 // its an enchant (poggers)
-                val enchant: EnchantmentWrapper = try {
-                    CustomEnchants.customEnchants.stream().filter { pog: EnchantmentWrapper? ->
-                        pog!!.name.equals(
-                            args[i], ignoreCase = true
-                        )
-                    }.toArray()[0] as EnchantmentWrapper
+                val enchant = try {
+                    CustomEnchants.getCustomEnchant(args[i])
                 } catch (e1: ArrayIndexOutOfBoundsException) {
                     // enchant is not a custom one
                     continue

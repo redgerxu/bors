@@ -1,47 +1,15 @@
 package io.github.narutopig.bors.util
 
-import com.google.gson.GsonBuilder
+import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.enchanting.EnchantmentWrapper
+import io.github.narutopig.bors.enchanting.util.EnchantmentData
 import io.github.narutopig.bors.util.General.romanToInteger
-import org.bukkit.*
+import io.github.narutopig.bors.util.General.toRoman
+import org.bukkit.ChatColor
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
-class EnchantmentName(name: String, displayName: String) {
-    val name: String
-    val displayName: String
-
-    init {
-        this.name = name
-        this.displayName = displayName
-    }
-}
-
-class EnchantmentData(hasEnchant: Boolean, level: Int) {
-    val hasEnchant: Boolean
-    val level: Int
-
-    init {
-        this.hasEnchant = hasEnchant
-        this.level = level
-    }
-}
-
 object Enchanting {
-    var enchantmentNames = mutableMapOf<String, String>()
-
-    init {
-        GsonBuilder().create().fromJson(Text.text(), Array<EnchantmentName>::class.java)
-            .toList()
-            .forEach {
-                enchantmentNames[it.name] = it.displayName
-            }
-    }
-
-    private fun hasEnchant(item: ItemStack, enchantment: Enchantment): Boolean {
-        return item.enchantments[enchantment] != null
-    }
-
     fun calculateLevel(e: Enchantment, a: Int, b: Int): Int {
         /*
         Calculates result of combining the two levels
@@ -58,32 +26,23 @@ object Enchanting {
         val item = itemStack.clone()
         if (!canEnchant(item, enchantment)) return null
         val itemMeta = item.itemMeta ?: return null
-        var lore = itemMeta.lore
-        if (lore == null) lore = ArrayList()
-        if (hasEnchant(item, enchantment)) {
-            var i = 0
-            for (line in lore) {
-                if (ChatColor.stripColor(line)!!.split(" ").toTypedArray()[0] == enchantment.name) {
-                    val newLine = EnchantmentWrapper.color.toString() + enchantment.name + " " + General.toRoman(level)
-                    lore[i] = newLine
-                    break
-                }
-                i++
-            }
-        } else {
-            val newLine = EnchantmentWrapper.color.toString() + enchantment.name + " " + General.toRoman(level)
-            lore.add(newLine)
+        val lore = ArrayList<String>()
+        val enchants = getItemCustomEnchants(item)
+
+        enchants[enchantment] = level
+
+        for ((enchant, lvl) in enchants) {
+            lore.add("${ChatColor.GRAY}${enchant.name} ${toRoman(lvl)}")
         }
+
         itemMeta.lore = lore
         item.itemMeta = itemMeta
-        item.removeEnchantment(enchantment)
-        item.addEnchantment(enchantment, level)
 
         return item
     }
 
     /*
-    * @param  item Item to check for the enchantment data
+    * @param item Item to check for the enchantment data
     * @param enchantment Name of enchantment as is displayed in Minecraft English (US)
      */
     fun getEnchantmentData(item: ItemStack, enchantment: String): EnchantmentData {
@@ -109,5 +68,33 @@ object Enchanting {
                 EnchantmentData(hasEnchant, level)
             }
         }
+    }
+
+    private fun getItemCustomEnchants(item: ItemStack?): MutableMap<EnchantmentWrapper, Int> {
+        val res = mutableMapOf<EnchantmentWrapper, Int>()
+
+        if (item == null) return res
+        val itemMeta = item.itemMeta ?: return res
+        val lore = itemMeta.lore ?: return res
+        if (lore.isEmpty()) return res
+
+        for (line in lore) {
+            val l = ChatColor.stripColor(line) ?: continue
+            if (l.trim().isEmpty()) continue
+            val stuff = l.split(" ")
+            var enchant: EnchantmentWrapper
+            try {
+                enchant = CustomEnchants.getCustomEnchant(stuff[0].trim())
+            } catch (e: NoSuchElementException) {
+                continue
+            }
+            val level = romanToInteger(stuff[1].trim())
+
+            if (res.getOrDefault(enchant, 0) < level) {
+                res[enchant] = level
+            }
+        }
+
+        return res
     }
 }
