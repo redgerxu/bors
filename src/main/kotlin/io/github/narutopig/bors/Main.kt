@@ -12,6 +12,7 @@ import io.github.narutopig.bors.listeners.AntiCombatLog
 import io.github.narutopig.bors.listeners.ConsoleCommand
 import io.github.narutopig.bors.listeners.RecipeUnlocker
 import org.bukkit.Bukkit
+import org.bukkit.Bukkit.broadcastMessage
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
@@ -20,6 +21,10 @@ class Main : JavaPlugin() {
     companion object {
         lateinit var instance: Main
         lateinit var configuration: FileConfiguration
+
+        fun broadcast(message: String) {
+            broadcastMessage(message)
+        }
     }
 
     override fun onEnable() {

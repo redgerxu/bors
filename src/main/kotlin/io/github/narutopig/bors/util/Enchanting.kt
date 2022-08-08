@@ -56,7 +56,7 @@ object Enchanting {
             var enchant: CustomEnchantment
             try {
                 enchant =
-                    CustomEnchants.getCustomEnchantByName(stuff.subList(0, stuff.size - 2).joinToString(" ").trim())
+                    CustomEnchants.getCustomEnchantByName(stuff.subList(0, stuff.size - 1).joinToString(" ").trim())
             } catch (e: NoSuchElementException) {
                 continue
             }

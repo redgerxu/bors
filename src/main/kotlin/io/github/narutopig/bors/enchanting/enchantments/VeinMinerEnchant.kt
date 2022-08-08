@@ -1,5 +1,6 @@
 package io.github.narutopig.bors.enchanting.enchantments
 
+import io.github.narutopig.bors.Main
 import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.util.Enchanting
 import org.bukkit.Material
@@ -11,20 +12,29 @@ import org.bukkit.event.block.BlockBreakEvent
 
 // i hate recursion
 class RecursiveThing {
+    constructor(world: World, blockType: Material) {
+        this.world = world
+        this.blockType = blockType
+    }
+
+    var world: World
+    var blockType: Material
     val blocks = mutableSetOf<Block>()
-    lateinit var world: World
-    lateinit var blockType: Material
+
 
     fun someRecursiveThing(block: Block) {
-        if (block.type != blockType) return
-        blocks.add(block)
-        val loc = block.location
-        someRecursiveThing(world.getBlockAt(loc.add(1.0, 0.0, 0.0)))
-        someRecursiveThing(world.getBlockAt(loc.add(-1.0, 0.0, 0.0)))
-        someRecursiveThing(world.getBlockAt(loc.add(0.0, 1.0, 0.0)))
-        someRecursiveThing(world.getBlockAt(loc.add(0.0, -1.0, 0.0)))
-        someRecursiveThing(world.getBlockAt(loc.add(0.0, 0.0, 1.0)))
-        someRecursiveThing(world.getBlockAt(loc.add(0.0, 0.0, -1.0)))
+        if (block.type != blockType || blocks.contains(block)) {
+            return
+        } else {
+            blocks.add(block)
+            val loc = block.location
+            someRecursiveThing(world.getBlockAt(loc.add(1.0, 0.0, 0.0)))
+            someRecursiveThing(world.getBlockAt(loc.add(-1.0, 0.0, 0.0)))
+            someRecursiveThing(world.getBlockAt(loc.add(0.0, 1.0, 0.0)))
+            someRecursiveThing(world.getBlockAt(loc.add(0.0, -1.0, 0.0)))
+            someRecursiveThing(world.getBlockAt(loc.add(0.0, 0.0, 1.0)))
+            someRecursiveThing(world.getBlockAt(loc.add(0.0, 0.0, -1.0)))
+        }
     }
 }
 
@@ -40,8 +50,11 @@ class BlockDistComparator : Comparator<Block> {
 }
 
 class VeinMinerEnchant : Listener {
+    // WARNING: currently bugged
     @EventHandler
     fun onPlayerBreakBlock(event: BlockBreakEvent) {
+        if (!Main.configuration.getBoolean("enchantments.veinminer")) return
+
         val player = event.player
         val hand = player.inventory.itemInMainHand
 
@@ -56,15 +69,21 @@ class VeinMinerEnchant : Listener {
         val lvl = enchants.getOrDefault(CustomEnchants.VEINMINER, 0)
         if (lvl == 0) return
 
-        val temp = RecursiveThing()
+        val temp = RecursiveThing(block.world, block.type)
         temp.world = block.world
         temp.blockType = block.type
         temp.someRecursiveThing(block)
         val comp = BlockDistComparator()
         comp.center = block
-        val blocks = temp.blocks.sortedWith(comp).subList(0, lvl * 3)
+        val blocks = temp.blocks.sortedWith(comp).toMutableList()
+
+        while (blocks.size > lvl * 3) {
+            blocks.removeLast()
+        }
+
+        player.sendMessage("Mined ${blocks.size} blocks")
         for (block in blocks) {
-            println(block.location.toString())
+            block.breakNaturally(hand)
         }
     }
 }
