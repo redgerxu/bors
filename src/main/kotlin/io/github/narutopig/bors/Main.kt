@@ -4,10 +4,10 @@ import io.github.narutopig.bors.commands.BoRSEnchant
 import io.github.narutopig.bors.commands.Grindstone
 import io.github.narutopig.bors.commands.Options
 import io.github.narutopig.bors.commands.UpdateLore
-import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.enchanting.enchantments.ExperienceEnchant
 import io.github.narutopig.bors.enchanting.enchantments.PoisonEnchant
 import io.github.narutopig.bors.enchanting.enchantments.TelekinesisEnchant
+import io.github.narutopig.bors.enchanting.enchantments.VeinMinerEnchant
 import io.github.narutopig.bors.listeners.AntiCombatLog
 import io.github.narutopig.bors.listeners.ConsoleCommand
 import io.github.narutopig.bors.listeners.RecipeUnlocker
@@ -26,10 +26,10 @@ class Main : JavaPlugin() {
         saveDefaultConfig()
         instance = this
         configuration = config
-        CustomEnchants.register()
         registerEvent(ExperienceEnchant())
         registerEvent(PoisonEnchant())
         registerEvent(TelekinesisEnchant())
+        registerEvent(VeinMinerEnchant())
         registerEvent(ConsoleCommand())
         registerEvent(AntiCombatLog())
         registerEvent(RecipeUnlocker())

@@ -8,7 +8,7 @@ import org.bukkit.enchantments.EnchantmentTarget
 import org.bukkit.inventory.ItemStack
 import javax.annotation.Nonnull
 
-class EnchantmentWrapper(
+class CustomEnchantment(
     key: String,
     private val name: String,
     private val maxLevel: Int,
@@ -26,10 +26,6 @@ class EnchantmentWrapper(
         maxLevel: Int,
         cost: ItemStack
     ) : this(key, name, maxLevel, cost, EnchantmentTarget.BREAKABLE)
-
-    companion object {
-        val color = ChatColor.GRAY
-    }
 
     fun getCost(level: Int): ItemStack {
         val newLevel = General.power(2, level - 1) * this.cost.amount

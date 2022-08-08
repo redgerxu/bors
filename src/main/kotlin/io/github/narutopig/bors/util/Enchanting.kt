@@ -1,7 +1,7 @@
-package io.github.narutopig.bors.enchanting.util
+package io.github.narutopig.bors.util
 
 import io.github.narutopig.bors.enchanting.CustomEnchants
-import io.github.narutopig.bors.enchanting.EnchantmentWrapper
+import io.github.narutopig.bors.enchanting.CustomEnchantment
 import io.github.narutopig.bors.util.General.romanToInteger
 import io.github.narutopig.bors.util.General.toRoman
 import org.bukkit.ChatColor
@@ -21,7 +21,7 @@ object Enchanting {
         return enchantment.canEnchantItem(item!!) && enchantment.itemTarget.includes(item)
     }
 
-    fun addEnchant(itemStack: ItemStack, enchantment: EnchantmentWrapper, level: Int): ItemStack? {
+    fun addEnchant(itemStack: ItemStack, enchantment: CustomEnchantment, level: Int): ItemStack? {
         val item = itemStack.clone()
         if (!canEnchant(item, enchantment)) return null
         val itemMeta = item.itemMeta ?: return null
@@ -69,8 +69,9 @@ object Enchanting {
         }
     }
 
-    fun getItemCustomEnchants(item: ItemStack?): MutableMap<EnchantmentWrapper, Int> {
-        val res = mutableMapOf<EnchantmentWrapper, Int>()
+    // returns all custom enchants with level
+    fun getItemCustomEnchants(item: ItemStack?): MutableMap<CustomEnchantment, Int> {
+        val res = mutableMapOf<CustomEnchantment, Int>()
 
         if (item == null) return res
         val itemMeta = item.itemMeta ?: return res
@@ -81,9 +82,9 @@ object Enchanting {
             val l = ChatColor.stripColor(line) ?: continue
             if (l.trim().isEmpty()) continue
             val stuff = l.split(" ")
-            var enchant: EnchantmentWrapper
+            var enchant: CustomEnchantment
             try {
-                enchant = CustomEnchants.getCustomEnchant(stuff[0].trim())
+                enchant = CustomEnchants.getCustomEnchantByName(stuff.subList(0, stuff.size - 2).joinToString(" ").trim())
             } catch (e: NoSuchElementException) {
                 continue
             }
