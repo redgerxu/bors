@@ -81,7 +81,7 @@ class VeinMinerEnchant : Listener {
             blocks.removeLast()
         }
 
-        player.sendMessage("Mined ${blocks.size} blocks")
+//        player.sendMessage("Mined ${blocks.size} blocks")
         for (block in blocks) {
             block.breakNaturally(hand)
         }
