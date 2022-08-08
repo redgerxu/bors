@@ -2,7 +2,7 @@ package io.github.narutopig.bors.enchanting.enchantments
 
 import io.github.narutopig.bors.Main
 import io.github.narutopig.bors.enchanting.CustomEnchants
-import io.github.narutopig.bors.util.Enchanting.getEnchantmentData
+import io.github.narutopig.bors.util.Enchanting
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -18,11 +18,12 @@ class PoisonEnchant : Listener {
 
         if (event.damager is Player) {
             val damager = event.damager as Player
-            val eData = getEnchantmentData(damager.inventory.itemInMainHand, CustomEnchants.POISON.name)
-            if (eData.hasEnchant) {
+            val eData = Enchanting.getItemCustomEnchants(damager.inventory.itemInMainHand)
+            val poisonLevel = eData[CustomEnchants.POISON] ?: 0
+            if (poisonLevel > 0) {
                 if (event.entity is Player) {
                     val player = event.entity as Player
-                    val poison = PotionEffect(PotionEffectType.POISON, 20 * 5, eData.level)
+                    val poison = PotionEffect(PotionEffectType.POISON, 20 * 5, poisonLevel)
                     player.addPotionEffect(poison)
                 }
             }

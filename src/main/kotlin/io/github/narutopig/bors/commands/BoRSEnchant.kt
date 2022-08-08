@@ -2,8 +2,8 @@ package io.github.narutopig.bors.commands
 
 import io.github.narutopig.bors.Main
 import io.github.narutopig.bors.enchanting.CostData
-import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.enchanting.CustomEnchantment
+import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.util.Enchanting
 import io.github.narutopig.bors.util.General
 import io.github.narutopig.bors.util.Messages

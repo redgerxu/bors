@@ -2,7 +2,7 @@ package io.github.narutopig.bors.enchanting.enchantments
 
 import io.github.narutopig.bors.Main
 import io.github.narutopig.bors.enchanting.CustomEnchants
-import io.github.narutopig.bors.util.Enchanting.getEnchantmentData
+import io.github.narutopig.bors.util.Enchanting
 import org.bukkit.GameMode
 import org.bukkit.block.Container
 import org.bukkit.entity.Player
@@ -26,7 +26,8 @@ class TelekinesisEnchant : Listener {
 
         if (killer == null) return
         val hand = killer.inventory.itemInMainHand
-        if (!getEnchantmentData(hand, CustomEnchants.TELEKINESIS.name).hasEnchant) return
+        val eData = Enchanting.getItemCustomEnchants(hand)
+        if ((eData[CustomEnchants.TELEKINESIS] ?: 0) > 0) return
         val drops = event.drops
         drops.forEach {
             player?.inventory?.addItem(it)
@@ -44,7 +45,8 @@ class TelekinesisEnchant : Listener {
         val block = event.block
         val hand = player.inventory.itemInMainHand
         if (player.inventory.firstEmpty() == -1) return
-        if (!getEnchantmentData(hand, CustomEnchants.TELEKINESIS.name).hasEnchant) return
+        val eData = Enchanting.getItemCustomEnchants(hand)
+        if ((eData[CustomEnchants.TELEKINESIS] ?: 0) > 0) return
         if (player.gameMode == GameMode.CREATIVE || player.gameMode == GameMode.SPECTATOR) return
         if (block.state is Container) return
         event.isDropItems = false

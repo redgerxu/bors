@@ -1,7 +1,7 @@
 package io.github.narutopig.bors.util
 
-import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.enchanting.CustomEnchantment
+import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.util.General.romanToInteger
 import io.github.narutopig.bors.util.General.toRoman
 import org.bukkit.ChatColor
@@ -40,35 +40,6 @@ object Enchanting {
         return item
     }
 
-    /*
-    * @param item Item to check for the enchantment data
-    * @param enchantment Name of enchantment as is displayed in Minecraft English (US)
-     */
-    fun getEnchantmentData(item: ItemStack, enchantment: String): EnchantmentData {
-        val itemMeta = item.itemMeta
-
-        if (itemMeta == null) {
-            return EnchantmentData(false, 0)
-        } else {
-            val lore = itemMeta.lore
-
-            return if (lore == null) {
-                EnchantmentData(false, 0)
-            } else {
-                var hasEnchant = false
-                var level = 0
-
-                lore.forEach {
-                    val stuff = ChatColor.stripColor(it)!!.split(" ")
-                    if (stuff[0] == enchantment) hasEnchant = true
-                    level = romanToInteger(stuff[1])
-                }
-
-                EnchantmentData(hasEnchant, level)
-            }
-        }
-    }
-
     // returns all custom enchants with level
     fun getItemCustomEnchants(item: ItemStack?): MutableMap<CustomEnchantment, Int> {
         val res = mutableMapOf<CustomEnchantment, Int>()
@@ -84,11 +55,12 @@ object Enchanting {
             val stuff = l.split(" ")
             var enchant: CustomEnchantment
             try {
-                enchant = CustomEnchants.getCustomEnchantByName(stuff.subList(0, stuff.size - 2).joinToString(" ").trim())
+                enchant =
+                    CustomEnchants.getCustomEnchantByName(stuff.subList(0, stuff.size - 2).joinToString(" ").trim())
             } catch (e: NoSuchElementException) {
                 continue
             }
-            val level = romanToInteger(stuff[1].trim())
+            val level = romanToInteger(stuff.last().trim())
 
             if (res.getOrDefault(enchant, 0) < level) {
                 res[enchant] = level
