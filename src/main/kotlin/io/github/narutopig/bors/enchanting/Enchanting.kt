@@ -1,7 +1,5 @@
-package io.github.narutopig.bors.util
+package io.github.narutopig.bors.enchanting
 
-import io.github.narutopig.bors.enchanting.CustomEnchantment
-import io.github.narutopig.bors.enchanting.CustomEnchants
 import io.github.narutopig.bors.util.General.romanToInteger
 import io.github.narutopig.bors.util.General.toRoman
 import org.bukkit.ChatColor

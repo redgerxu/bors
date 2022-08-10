@@ -4,13 +4,14 @@ import io.github.narutopig.bors.commands.BoRSEnchant
 import io.github.narutopig.bors.commands.Grindstone
 import io.github.narutopig.bors.commands.Options
 import io.github.narutopig.bors.commands.UpdateLore
-import io.github.narutopig.bors.enchanting.enchantments.ExperienceEnchant
-import io.github.narutopig.bors.enchanting.enchantments.PoisonEnchant
-import io.github.narutopig.bors.enchanting.enchantments.TelekinesisEnchant
-import io.github.narutopig.bors.enchanting.enchantments.VeinMinerEnchant
 import io.github.narutopig.bors.listeners.AntiCombatLog
 import io.github.narutopig.bors.listeners.ConsoleCommand
+import io.github.narutopig.bors.listeners.Lifesteal
 import io.github.narutopig.bors.listeners.RecipeUnlocker
+import io.github.narutopig.bors.listeners.enchantments.ExperienceEnchant
+import io.github.narutopig.bors.listeners.enchantments.PoisonEnchant
+import io.github.narutopig.bors.listeners.enchantments.TelekinesisEnchant
+import io.github.narutopig.bors.listeners.enchantments.VeinMinerEnchant
 import org.bukkit.Bukkit
 import org.bukkit.Bukkit.broadcastMessage
 import org.bukkit.configuration.file.FileConfiguration
@@ -31,13 +32,19 @@ class Main : JavaPlugin() {
         saveDefaultConfig()
         instance = this
         configuration = config
+        // enchants
         registerEvent(ExperienceEnchant())
         registerEvent(PoisonEnchant())
         registerEvent(TelekinesisEnchant())
         registerEvent(VeinMinerEnchant())
-        registerEvent(ConsoleCommand())
+
+        // fun modules and stuff
         registerEvent(AntiCombatLog())
+        registerEvent(ConsoleCommand())
+        registerEvent(Lifesteal())
         registerEvent(RecipeUnlocker())
+
+        // commands
         getCommand("borsenchant")!!.setExecutor(BoRSEnchant())
         getCommand("borsenchant")!!.tabCompleter = BoRSEnchant()
         getCommand("grindstone")!!.setExecutor(Grindstone())

@@ -15,3 +15,10 @@ enchantments:
 plugins:
   anticombatlog: false
   consolecommand: false
+  lifesteal: false
+
+recipes:
+  nether_star: false
+  saddle: false
+  shulker_box: false
+  trident: false

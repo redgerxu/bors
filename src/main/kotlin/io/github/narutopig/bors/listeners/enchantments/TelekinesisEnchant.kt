@@ -1,8 +1,8 @@
-package io.github.narutopig.bors.enchanting.enchantments
+package io.github.narutopig.bors.listeners.enchantments
 
 import io.github.narutopig.bors.Main
 import io.github.narutopig.bors.enchanting.CustomEnchants
-import io.github.narutopig.bors.util.Enchanting
+import io.github.narutopig.bors.enchanting.Enchanting
 import org.bukkit.GameMode
 import org.bukkit.block.Container
 import org.bukkit.entity.Player

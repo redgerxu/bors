@@ -1,6 +1,5 @@
 package io.github.narutopig.bors.enchanting
 
-import io.github.narutopig.bors.util.Enchanting
 import org.bukkit.Material
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
