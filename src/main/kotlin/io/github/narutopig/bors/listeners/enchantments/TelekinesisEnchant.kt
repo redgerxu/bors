@@ -27,7 +27,7 @@ class TelekinesisEnchant : Listener {
         if (killer == null) return
         val hand = killer.inventory.itemInMainHand
         val eData = Enchanting.getItemCustomEnchants(hand)
-        if ((eData[CustomEnchants.TELEKINESIS] ?: 0) > 0) return
+        if ((eData[CustomEnchants.TELEKINESIS] ?: 0) <= 0) return
         val drops = event.drops
         drops.forEach {
             player?.inventory?.addItem(it)
@@ -46,7 +46,7 @@ class TelekinesisEnchant : Listener {
         val hand = player.inventory.itemInMainHand
         if (player.inventory.firstEmpty() == -1) return
         val eData = Enchanting.getItemCustomEnchants(hand)
-        if ((eData[CustomEnchants.TELEKINESIS] ?: 0) > 0) return
+        if ((eData[CustomEnchants.TELEKINESIS] ?: 0) <= 0) return
         if (player.gameMode == GameMode.CREATIVE || player.gameMode == GameMode.SPECTATOR) return
         if (block.state is Container) return
         event.isDropItems = false
