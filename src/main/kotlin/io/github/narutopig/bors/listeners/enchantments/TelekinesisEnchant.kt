@@ -6,6 +6,7 @@ import io.github.narutopig.bors.enchanting.Enchanting
 import org.bukkit.GameMode
 import org.bukkit.block.Container
 import org.bukkit.entity.Player
+import org.bukkit.entity.Wolf
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent

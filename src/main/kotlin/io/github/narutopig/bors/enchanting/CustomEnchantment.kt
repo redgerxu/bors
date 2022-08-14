@@ -13,10 +13,6 @@ class CustomEnchantment(
     private val maxLevel: Int,
     private var cost: ItemStack,
     private var target: EnchantmentTarget,
-) : Enchantment(
-    NamespacedKey.minecraft(
-        key
-    )
 ) {
 
     constructor(
@@ -33,38 +29,36 @@ class CustomEnchantment(
         return newCost
     }
 
-    @Nonnull
-    override fun getName(): String {
+    fun getName(): String {
         return name
     }
 
-    override fun getMaxLevel(): Int {
+    fun getMaxLevel(): Int {
         return maxLevel
     }
 
-    override fun getStartLevel(): Int {
+    fun getStartLevel(): Int {
         return 1
     }
 
-    @Nonnull
-    override fun getItemTarget(): EnchantmentTarget {
+    fun getItemTarget(): EnchantmentTarget {
         return target
     }
 
-    override fun isTreasure(): Boolean {
+    fun isTreasure(): Boolean {
         return false
     }
 
-    override fun isCursed(): Boolean {
+    fun isCursed(): Boolean {
         return false
     }
 
-    override fun conflictsWith(@Nonnull other: Enchantment): Boolean {
+    fun conflictsWith(@Nonnull other: Enchantment): Boolean {
         // TODO: Actually check conflicts or something
         return false
     }
 
-    override fun canEnchantItem(@Nonnull item: ItemStack): Boolean {
+    fun canEnchantItem(@Nonnull item: ItemStack): Boolean {
         return true
     }
 }
