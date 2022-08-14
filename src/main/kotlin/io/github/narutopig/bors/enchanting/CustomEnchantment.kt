@@ -7,20 +7,24 @@ import org.bukkit.enchantments.EnchantmentTarget
 import org.bukkit.inventory.ItemStack
 import javax.annotation.Nonnull
 
-class CustomEnchantment(
-    key: String,
-    private val name: String,
-    private val maxLevel: Int,
-    private var cost: ItemStack,
-    private var target: EnchantmentTarget,
-) {
+class CustomEnchantment {
+    val key: String
+    val name: String
+    val maxLevel: Int
+    private val cost: ItemStack
+//    private var target: EnchantmentTarget
 
     constructor(
         key: String,
         name: String,
         maxLevel: Int,
         cost: ItemStack
-    ) : this(key, name, maxLevel, cost, EnchantmentTarget.BREAKABLE)
+    ) {
+        this.key = key
+        this.name = name
+        this.maxLevel = maxLevel
+        this.cost = cost
+    }
 
     fun getCost(level: Int): ItemStack {
         val newLevel = General.power(2, level - 1) * this.cost.amount
@@ -29,21 +33,11 @@ class CustomEnchantment(
         return newCost
     }
 
-    fun getName(): String {
-        return name
-    }
-
-    fun getMaxLevel(): Int {
-        return maxLevel
-    }
-
-    fun getStartLevel(): Int {
-        return 1
-    }
-
+    /*
     fun getItemTarget(): EnchantmentTarget {
         return target
     }
+    */
 
     fun isTreasure(): Boolean {
         return false

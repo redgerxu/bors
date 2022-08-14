@@ -25,7 +25,7 @@ class BoRSEnchant : CommandExecutor, TabExecutor {
         args: Array<String>
     ): List<String>? {
         if (sender is Player) {
-            val options = CustomEnchants.customEnchants.map { enchant -> enchant.key.key }.toMutableList()
+            val options = CustomEnchants.customEnchants.map { enchant -> enchant.key }.toMutableList()
             if (args.isNotEmpty()) {
                 try {
                     val lastEnchant = CustomEnchants.getCustomEnchant(args.last())
@@ -87,13 +87,15 @@ class BoRSEnchant : CommandExecutor, TabExecutor {
                     ignored[e] = cannotAfford
                 }
 
-                // are there any conflicts
+                // are there any conflicts (currently unused)
+                /*
                 for (enchantment in handEnchants.keys.toList()) {
                     if (e.conflictsWith(enchantment)) {
                         ignored[e] = conflicts
                         break
                     }
                 }
+                */
             }
 
             // remove all enchantments that should not be there

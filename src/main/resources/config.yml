@@ -10,7 +10,7 @@ enchantments:
   experience: true
   poison: true
   telekinesis: true
-  veinminer: false # due to bug
+  autominer: false # due to bug
 
 plugins:
   anticombatlog: false

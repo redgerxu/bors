@@ -7,7 +7,7 @@ import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
 object Enchanting {
-    fun calculateLevel(e: Enchantment, a: Int, b: Int): Int {
+    fun calculateLevel(e: CustomEnchantment, a: Int, b: Int): Int {
         /*
         Calculates result of combining the two levels
          */
@@ -15,8 +15,9 @@ object Enchanting {
         return res.coerceAtMost(e.maxLevel)
     }
 
-    fun canEnchant(item: ItemStack?, enchantment: Enchantment): Boolean {
-        return enchantment.canEnchantItem(item!!) && enchantment.itemTarget.includes(item)
+    fun canEnchant(item: ItemStack?, enchantment: CustomEnchantment): Boolean {
+        // TODO: Make it actually check
+        return true
     }
 
     fun addEnchant(itemStack: ItemStack, enchantment: CustomEnchantment, level: Int): ItemStack? {

@@ -11,7 +11,7 @@ import io.github.narutopig.bors.listeners.RecipeUnlocker
 import io.github.narutopig.bors.listeners.enchantments.ExperienceEnchant
 import io.github.narutopig.bors.listeners.enchantments.PoisonEnchant
 import io.github.narutopig.bors.listeners.enchantments.TelekinesisEnchant
-import io.github.narutopig.bors.listeners.enchantments.VeinMinerEnchant
+import io.github.narutopig.bors.listeners.enchantments.AutoMinerEnchant
 import org.bukkit.Bukkit
 import org.bukkit.Bukkit.broadcastMessage
 import org.bukkit.configuration.file.FileConfiguration
@@ -36,7 +36,7 @@ class Main : JavaPlugin() {
         registerEvent(ExperienceEnchant())
         registerEvent(PoisonEnchant())
         registerEvent(TelekinesisEnchant())
-        registerEvent(VeinMinerEnchant())
+        registerEvent(AutoMinerEnchant())
 
         // fun modules and stuff
         registerEvent(AntiCombatLog())

@@ -27,27 +27,27 @@ object CustomEnchants {
         ItemStack(Material.ENDER_PEARL, 4)
     )
 
-    val VEINMINER = CustomEnchantment(
-        "veinminer",
-        "Vein Miner",
+    val AUTOMINER = CustomEnchantment(
+        "autominer",
+        "Auto Miner",
         3,
-        ItemStack(Material.REDSTONE_BLOCK, 2)
+        ItemStack(Material.REDSTONE_BLOCK, 4)
     )
 
     val customEnchants: MutableList<CustomEnchantment> = mutableListOf(
         EXPERIENCE,
         POISON,
         TELEKINESIS,
-        VEINMINER
+        AUTOMINER
     )
 
     fun isCustomEnchantment(e: Enchantment): Boolean {
-        return customEnchants.any { it.key == e.key }
+        return customEnchants.any { it.key == e.key.key }
     }
 
     fun getCustomEnchant(key: String, case: Boolean = false): CustomEnchantment {
-        if (case) return customEnchants.first { it.key.key == key }
-        return customEnchants.first { it.key.key.lowercase() == key.lowercase() }
+        if (case) return customEnchants.first { it.key == key }
+        return customEnchants.first { it.key.lowercase() == key.lowercase() }
     }
 
     fun getCustomEnchantByName(name: String, case: Boolean = false): CustomEnchantment {
